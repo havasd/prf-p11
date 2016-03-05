@@ -6,21 +6,21 @@ felhasználók különböző csoportokba tartozhatnak, így lehetőség van csop
 esetén a csoportnak is üzenetet küldeni. Az üzenetküldés üzenetszálakba szervezve
 történik.
 
-## Entitások:
+## Entitások
 
 - [ ] User (felhasználó)
 - [ ] Group (felhasználói csoport)
 - [ ] Message (üzenet)
 - [ ] MessageThread (üzenetszál)
  
-## Elvárt felületek:
+## Elvárt felületek
 
 - [ ] Adott felhasználóhoz kapcsolható üzenetszálak listázása
 - [ ] Adott üzenetszálon belül az üzenetek listázása
 - [ ] Csoportok létrehozása, szerkesztése, csoporttagság kezelésének megvalósítása
 - [ ] Üzenetküldési lehetőség felhasználónak vagy csoportnak
 
-## Összetett felületek:
+## Összetett felületek
 
 - [ ] Adott felhasználó számára küldött üzenetek száma, feladónként csoportosítva
 - [ ] Legtöbb üzenetet küldő felhasználók
