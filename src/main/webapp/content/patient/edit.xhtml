@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	
+	<f:metadata>
+		<f:viewParam
+			name="id" 
+			value="#{patientAction.id}" />
+		<f:event 
+			type="preRenderView"
+			listener="#{patientAction.load()}" />
+	</f:metadata>
+	
+	<ui:define name="content">
+	
+		<h1>#{empty patientAction.id ? 'Új beteg felvétele' : 'Beteg adatainak szerkesztése'}</h1>
+		
+		<h:form id="patientEditForm">
+
+			<div>
+				<h:outputLabel 
+					for="patientName" 
+					value="Név: "/>
+				<h:inputText 
+					id="patientName" 
+					value="#{patientAction.entity.name}"
+					required="true" />
+				<h:message 
+					for="patientName" 
+					styleClass="error" />
+			</div>
+			
+			<div>
+				<h:outputLabel 
+					for="patientBirthDate" 
+					value="Születési dátum: "/>
+				<h:inputText 
+					id="patientBirthDate" 
+					value="#{patientAction.entity.birthDate}"
+					required="true">
+					<f:convertDateTime pattern="yyyy. MM. dd." />
+				</h:inputText>
+				<h:message 
+					for="patientBirthDate" 
+					styleClass="error" />
+			</div>
+			
+			<div>
+				<h:outputLabel 
+					for="patientCountry" 
+					value="Ország: "/>
+				<h:inputText 
+					id="patientCountry" 
+					value="#{patientAction.entity.address.country}"
+					required="true" />
+				<h:message 
+					for="patientCountry" 
+					styleClass="error" />
+			</div>
+			
+			<div>
+				<h:outputLabel 
+					for="patientCity" 
+					value="Város: "/>
+				<h:inputText 
+					id="patientCity" 
+					value="#{patientAction.entity.address.city}"
+					required="true" />
+				<h:message 
+					for="patientCity" 
+					styleClass="error" />
+			</div>
+			
+			<div>
+				<h:outputLabel 
+					for="patientStreet" 
+					value="Utca: "/>
+				<h:inputText 
+					id="patientStreet" 
+					value="#{patientAction.entity.address.street}"
+					required="true" />
+				<h:message 
+					for="patientStreet" 
+					styleClass="error" />
+			</div>
+			
+			<div>
+				<h:outputLabel 
+					for="patientNumber" 
+					value="Házszám: "/>
+				<h:inputText 
+					id="patientNumber" 
+					value="#{patientAction.entity.address.number}"
+					required="true" />
+				<h:message 
+					for="patientNumber" 
+					styleClass="error" />
+			</div>
+			
+			<h:commandLink
+				value="Mentés" 
+				action="#{patientAction.persist()}" />
+				
+			<h:link
+				value="Vissza"
+				outcome="/content/patient/list" />
+		
+		</h:form>
+
+	</ui:define>
+</ui:composition>

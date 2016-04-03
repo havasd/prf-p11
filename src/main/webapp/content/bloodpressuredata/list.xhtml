@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	
+	<f:metadata>
+		<f:event 
+			type="preRenderView"
+			listener="#{selectedPatientContainer.selectPatient(param['patient'])}" />
+		<f:event 
+			type="preRenderView"
+			listener="#{bloodPressureDataModel.load()}" />
+	</f:metadata>
+	
+	<ui:define name="content">
+	
+		<h1>#{selectedPatientContainer.selectedPatient.name} vérnyomás mérési adatainak listája</h1>
+
+		<h:form id="bloodPressureDataListForm">
+			
+			<div>
+				<h:outputText
+					value="Még nem vettek fel mérési adatot az adatbázisba"
+					rendered="#{empty bloodPressureDataModel.list}" />
+			</div>
+			
+			<h:dataTable 
+				id="bloodPressureDataTable"
+				value="#{bloodPressureDataModel.list}"
+				var="bloodPressureData"
+				rendered="#{not empty bloodPressureDataModel.list}"
+				styleClass="simpletablestyle">
+				
+				<h:column>
+					<f:facet name="header">Szisztolés</f:facet>
+					<h:outputText value="#{bloodPressureData.systolic}">
+						<f:convertNumber integerOnly="true" />
+					</h:outputText>
+					<h:outputText value=" Hgmm" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Diasztolés</f:facet>
+					<h:outputText value="#{bloodPressureData.diastolic}">
+						<f:convertNumber integerOnly="true" />
+					</h:outputText>
+					<h:outputText value=" Hgmm" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Pulzus</f:facet>
+					<h:outputText value="#{bloodPressureData.pulse}">
+						<f:convertNumber integerOnly="true" />
+					</h:outputText>
+					<h:outputText value=" bpm" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Mérés dátuma</f:facet>
+					<h:outputText value="#{bloodPressureData.date}">
+						<f:convertDateTime pattern="yyyy. MM. dd. HH:mm:ss" />
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Műveletek</f:facet>
+					<h:link 
+						value="Szerkesztés" 
+						outcome="/content/bloodpressuredata/edit">
+						<f:param name="id" value="#{bloodPressureData.id}" />
+					</h:link>
+					<h:commandLink
+						value="Törlés" 
+						action="#{bloodPressureDataAction.remove(bloodPressureData.id)}" />
+				</h:column>
+			
+			</h:dataTable>
+			
+			<h:link
+				value="Új vérnyomás mérési adat felvétele"
+				outcome="/content/bloodpressuredata/edit" />
+			<h:link
+				value="Vissza a betegek listájára"
+				outcome="/content/patient/list" />
+				
+		</h:form>
+
+	</ui:define>
+</ui:composition>

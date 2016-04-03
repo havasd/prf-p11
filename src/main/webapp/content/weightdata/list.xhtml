@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	
+	<f:metadata>
+		<f:event 
+			type="preRenderView"
+			listener="#{selectedPatientContainer.selectPatient(param['patient'])}" />
+		<f:event 
+			type="preRenderView"
+			listener="#{weightDataModel.load()}" />
+	</f:metadata>
+	
+	<ui:define name="content">
+	
+		<h1>#{selectedPatientContainer.selectedPatient.name} testúly mérési adatainak listája</h1>
+
+		<h:form id="weightDataListForm">
+			
+			<div>
+				<h:outputText
+					value="Még nem vettek fel mérési adatot az adatbázisba"
+					rendered="#{empty weightDataModel.list}" />
+			</div>
+			
+			<h:dataTable 
+				id="weightDataTable"
+				value="#{weightDataModel.list}"
+				var="weightData"
+				rendered="#{not empty weightDataModel.list}"
+				styleClass="simpletablestyle">
+				
+				<h:column>
+					<f:facet name="header">Testúly</f:facet>
+					<h:outputText value="#{weightData.weight}">
+						<f:convertNumber />
+					</h:outputText>
+					<h:outputText value=" kg" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Mérés dátuma</f:facet>
+					<h:outputText value="#{weightData.date}">
+						<f:convertDateTime pattern="yyyy. MM. dd. HH:mm:ss" />
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Műveletek</f:facet>
+					<h:link 
+						value="Szerkesztés" 
+						outcome="/content/weightdata/edit">
+						<f:param name="id" value="#{weightData.id}" />
+					</h:link>
+					<h:commandLink
+						value="Törlés" 
+						action="#{weightDataAction.remove(weightData.id)}" />
+				</h:column>
+			
+			</h:dataTable>
+			
+			<h:link
+				value="Új testsúly mérési adat felvétele"
+				outcome="/content/weightdata/edit" />
+			<h:link
+				value="Vissza a betegek listájára"
+				outcome="/content/patient/list" />
+				
+		</h:form>
+
+	</ui:define>
+</ui:composition>

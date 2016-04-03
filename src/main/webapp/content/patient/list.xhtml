@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	
+	<f:metadata>
+		<f:event 
+			type="preRenderView"
+			listener="#{patientDataModel.load()}" />
+	</f:metadata>
+	
+	<ui:define name="content">
+	
+		<h1>Betegek listája</h1>
+
+		<h:form id="patientListForm">
+			
+			<div>
+				<h:outputText
+					value="Még nem vettek fel beteget az adatbázisba"
+					rendered="#{empty patientDataModel.list}" />
+			</div>
+		
+			<h:dataTable 
+				id="patientTable"
+				value="#{patientDataModel.list}"
+				var="patient"
+				rendered="#{not empty patientDataModel.list}"
+				styleClass="simpletablestyle">
+				
+				<h:column>
+					<f:facet name="header">Név</f:facet>
+					<h:outputText value="#{patient.name}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Születési dátum</f:facet>
+					<h:outputText value="#{patient.birthDate}">
+						<f:convertDateTime pattern="yyyy. MM. dd." />
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Lakcím</f:facet>
+					<h:outputText value="#{patient.address.country}, #{patient.address.city}, #{patient.address.street} #{patient.address.number}" />
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Műveletek</f:facet>
+					
+					<div>
+						<h:link 
+							value="Testsúly mérési adatok" 
+							outcome="/content/weightdata/list">
+							<f:param 
+								name="patient" 
+								value="#{patient.id}" />
+						</h:link>
+					</div>
+					
+					<div>
+						<h:link 
+							value="Vérnyomás mérési adatok" 
+							outcome="/content/bloodpressuredata/list">
+							<f:param 
+								name="patient" 
+								value="#{patient.id}" />
+						</h:link>
+					</div>
+					
+					<div>
+						<h:link 
+							value="Szerkesztés" 
+							outcome="/content/patient/edit">
+							<f:param 
+								name="id" 
+								value="#{patient.id}" />
+						</h:link>
+						
+						<h:commandLink
+							value="Törlés" 
+							action="#{patientAction.remove(patient.id)}" />
+					</div>
+					
+				</h:column>
+			
+			</h:dataTable>
+			
+			<h:link
+				value="Új beteg felvétele"
+				outcome="/content/patient/edit" />
+			<h:link
+				value="Vissza"
+				outcome="/index" />
+				
+		</h:form>
+
+	</ui:define>
+</ui:composition>

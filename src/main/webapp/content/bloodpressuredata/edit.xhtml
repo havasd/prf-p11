@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	
+	<f:metadata>
+		<f:viewParam
+			name="id" 
+			value="#{bloodPressureDataAction.id}" />
+		<f:event
+			type="preRenderView"
+			listener="#{bloodPressureDataAction.load()}" />
+	</f:metadata>
+	
+	<ui:define name="content">
+	
+		<h1>#{empty bloodPressureDataAction.id ? 'Új vérnyomás mérési adat felvétele' : 'Vérnyomás mérési adat szerkesztése'}</h1>
+		
+		<h:form id="bloodPressureDataForm">
+		
+			<div>
+				<h:outputLabel 
+					for="systolic" 
+					value="Szisztolés: "/>
+				<h:panelGroup>
+					<h:inputText 
+						id="systolic" 
+						value="#{bloodPressureDataAction.entity.systolic}"
+						required="true">
+						<f:convertNumber integerOnly="true" />
+					</h:inputText>
+					<h:outputText value=" Hgmm" />
+					<h:message 
+						for="systolic" 
+						styleClass="error" />
+				</h:panelGroup>
+			</div>
+			
+			<div>
+				<h:outputLabel 
+					for="diastolic" 
+					value="Diasztolés: "/>
+				<h:panelGroup>
+					<h:inputText 
+						id="diastolic" 
+						value="#{bloodPressureDataAction.entity.diastolic}"
+						required="true">
+						<f:convertNumber integerOnly="true" />
+					</h:inputText>
+					<h:outputText value=" Hgmm" />
+					<h:message 
+						for="diastolic" 
+						styleClass="error" />
+				</h:panelGroup>
+			</div>
+			
+			<div>
+				<h:outputLabel 
+					for="pulse" 
+					value="Pulzus: "/>
+				<h:panelGroup>
+					<h:inputText 
+						id="pulse" 
+						value="#{bloodPressureDataAction.entity.pulse}"
+						required="true">
+						<f:convertNumber integerOnly="true" />
+					</h:inputText>
+					<h:outputText value=" bpm" />
+					<h:message 
+						for="pulse" 
+						styleClass="error" />
+				</h:panelGroup>
+			</div>
+			
+			<div>
+				<h:outputLabel 
+					for="date" 
+					value="Mérés dátuma: "/>
+				<h:inputText 
+					id="date" 
+					value="#{bloodPressureDataAction.entity.date}"
+					required="true">
+					<f:convertDateTime pattern="yyyy. MM. dd. HH:mm:ss" />
+				</h:inputText>
+				<h:message 
+					for="date" 
+					styleClass="error" />
+			</div>
+			
+			<h:commandLink 
+				value="Mentés" 
+				action="#{bloodPressureDataAction.persist()}" />
+				
+			<h:link
+				value="Vissza"
+				outcome="/content/bloodpressuredata/list" />
+		
+		</h:form>
+
+	</ui:define>
+</ui:composition>
