@@ -12,7 +12,14 @@ történik.
 - [ ] Group (felhasználói csoport)
 - [ ] Message (üzenet)
 - [ ] MessageThread (üzenetszál)
- 
+
+## Modell
+
+* User (id, name, email, password, address, birthdate, messagethreads)
+* UserGroup(id, name, users, messagethread)
+* Message(id, text, date, sender)
+* MessageThread(id, messages)
+
 ## Elvárt felületek
 
 - [ ] Adott felhasználóhoz kapcsolható üzenetszálak listázása
