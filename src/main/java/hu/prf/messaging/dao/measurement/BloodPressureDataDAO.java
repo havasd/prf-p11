@@ -6,7 +6,7 @@ import javax.persistence.TypedQuery;
 
 import hu.prf.messaging.dao.core.GenericDAO;
 import hu.prf.messaging.entity.measurement.BloodPressureData;
-import hu.prf.messaging.entity.person.Patient;
+import hu.prf.messaging.entity.person.User;
 
 public class BloodPressureDataDAO extends GenericDAO<BloodPressureData, Long> {
 
@@ -16,7 +16,7 @@ public class BloodPressureDataDAO extends GenericDAO<BloodPressureData, Long> {
 		super(BloodPressureData.class);
 	}
 	
-	public List<BloodPressureData> findByPatient(Patient patient) {
+	public List<BloodPressureData> findByPatient(User patient) {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("	select ");
 		queryBuilder.append("		bloodPressureData ");

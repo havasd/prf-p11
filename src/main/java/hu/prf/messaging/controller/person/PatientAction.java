@@ -4,7 +4,7 @@ import hu.prf.messaging.controller.core.AbstractEntityAction;
 import hu.prf.messaging.dao.core.GenericDAO;
 import hu.prf.messaging.dao.measurement.MeasurementDataDAO;
 import hu.prf.messaging.dao.person.PatientDAO;
-import hu.prf.messaging.entity.person.Patient;
+import hu.prf.messaging.entity.person.User;
 import hu.prf.messaging.entity.place.Address;
 
 import javax.faces.view.ViewScoped;
@@ -13,7 +13,7 @@ import javax.inject.Named;
 
 @Named
 @ViewScoped
-public class PatientAction extends AbstractEntityAction<Patient, Long> {
+public class PatientAction extends AbstractEntityAction<User, Long> {
 	
 	private static final long serialVersionUID = -7067061243883686127L;
 	
@@ -26,7 +26,7 @@ public class PatientAction extends AbstractEntityAction<Patient, Long> {
 	private MeasurementDataDAO measurementDataDAO;
 
 	public PatientAction() {
-		super(Patient.class);
+		super(User.class);
 	}
 	
 	@Override
@@ -35,12 +35,12 @@ public class PatientAction extends AbstractEntityAction<Patient, Long> {
 	}
 	
 	@Override
-	protected void beforeRemoving(Patient entityToRemove) {
+	protected void beforeRemoving(User entityToRemove) {
 		measurementDataDAO.removeByPatient(entityToRemove);
 	}
 
 	@Override
-	protected GenericDAO<Patient, Long> getEntityDao() {
+	protected GenericDAO<User, Long> getEntityDao() {
 		return patientDAO;
 	}
 

@@ -6,7 +6,7 @@ import javax.persistence.TypedQuery;
 
 import hu.prf.messaging.dao.core.GenericDAO;
 import hu.prf.messaging.entity.measurement.WeightData;
-import hu.prf.messaging.entity.person.Patient;
+import hu.prf.messaging.entity.person.User;
 
 public class WeightDataDAO extends GenericDAO<WeightData, Long> {
 
@@ -16,7 +16,7 @@ public class WeightDataDAO extends GenericDAO<WeightData, Long> {
 		super(WeightData.class);
 	}
 	
-	public List<WeightData> findByPatient(Patient patient) {
+	public List<WeightData> findByPatient(User patient) {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("	select ");
 		queryBuilder.append("		weightData ");

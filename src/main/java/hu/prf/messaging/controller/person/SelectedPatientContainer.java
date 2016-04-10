@@ -1,7 +1,7 @@
 package hu.prf.messaging.controller.person;
 
 import hu.prf.messaging.dao.person.PatientDAO;
-import hu.prf.messaging.entity.person.Patient;
+import hu.prf.messaging.entity.person.User;
 
 import java.io.Serializable;
 
@@ -18,7 +18,7 @@ public class SelectedPatientContainer implements Serializable {
 	@Inject
 	private PatientDAO patientDAO;
 	
-	private Patient selectedPatient;
+	private User selectedPatient;
 	
 	public void selectPatient(Long patientIdentifier) {
 		if (null != patientIdentifier) {
@@ -26,7 +26,7 @@ public class SelectedPatientContainer implements Serializable {
 		}
 	}
 	
-	public Patient getSelectedPatient() {
+	public User getSelectedPatient() {
 		return selectedPatient;
 	}
 

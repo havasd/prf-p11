@@ -4,7 +4,7 @@ import javax.persistence.Query;
 
 import hu.prf.messaging.dao.core.GenericDAO;
 import hu.prf.messaging.entity.measurement.MeasurementData;
-import hu.prf.messaging.entity.person.Patient;
+import hu.prf.messaging.entity.person.User;
 
 public class MeasurementDataDAO extends GenericDAO<MeasurementData, Long> {
 
@@ -14,7 +14,7 @@ public class MeasurementDataDAO extends GenericDAO<MeasurementData, Long> {
 		super(MeasurementData.class);
 	}
 	
-	public void removeByPatient(Patient patient) {
+	public void removeByPatient(User patient) {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("	delete ");
 		queryBuilder.append("	from ");
