@@ -1,6 +1,6 @@
 package hu.prf.messaging.entity.message;
 
-import hu.prf.messaging.entity.person.User;
+import hu.prf.messaging.entity.user.User;
 
 import java.io.Serializable;
 import java.util.Date;

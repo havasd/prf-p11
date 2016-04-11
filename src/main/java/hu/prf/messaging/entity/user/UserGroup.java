@@ -1,4 +1,4 @@
-package hu.prf.messaging.entity.person;
+package hu.prf.messaging.entity.user;
 
 import hu.prf.messaging.entity.message.MessageThread;
 

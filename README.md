@@ -8,9 +8,9 @@ történik.
 
 ## Entitások
 
-- [ ] User (felhasználó)
+- [X] User (felhasználó)
 - [ ] Group (felhasználói csoport)
-- [ ] Message (üzenet)
+- [X] Message (üzenet)
 - [ ] MessageThread (üzenetszál)
 
 ## Modell
@@ -19,6 +19,11 @@ történik.
 * UserGroup(id, name, users, messagethread)
 * Message(id, text, date, sender)
 * MessageThread(id, messages)
+
+## Plusz felületek
+
+- [ ] Login felület
+- [ ] Regisztrációs felület
 
 ## Elvárt felületek
 
