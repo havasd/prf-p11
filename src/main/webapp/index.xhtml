@@ -6,11 +6,26 @@
 	template="/templates/default.xhtml">
 	
 	<ui:define name="content">
-
-		<h:link
-			outcome="/content/patient/list"
-			value="Betegek listája" />
-
+		<h:form>
+		   <h:panelGrid columns="3" rendered="#{!login.loggedIn}">
+		      <f:validateBean>
+		         <h:outputLabel for="email">Email:</h:outputLabel>
+		         <h:inputText id="email" value="#{credentials.email}" required="true"
+		         	requiredMessage="Please enter your email address."
+					validatorMessage="Invalid email format">
+				    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+		         </h:inputText>
+		         <h:message for="email" style="color:red" />
+		         
+		         <h:outputLabel for="password">Password:</h:outputLabel>
+		         <h:inputSecret id="password" value="#{credentials.password}"/>
+		         <h:message for="password" style="color:red" />
+		      </f:validateBean>
+     		  <h:commandButton value="Bejelentkezés" action="#{login.login}"/>
+		   	  <h:button value="Regisztráció" outcome="/content/user/edit"/>
+		   </h:panelGrid>
+		   <h:commandButton value="Kijelentkezés" action="#{login.logout}" rendered="#{login.loggedIn}"/>
+		</h:form>
 	</ui:define>
 	
 </ui:composition>

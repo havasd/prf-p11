@@ -8,105 +8,131 @@
 	<f:metadata>
 		<f:viewParam
 			name="id" 
-			value="#{patientAction.id}" />
+			value="#{userAction.id}" />
 		<f:event 
 			type="preRenderView"
-			listener="#{patientAction.load()}" />
+			listener="#{userAction.load()}" />
 	</f:metadata>
 	
 	<ui:define name="content">
 	
-		<h1>#{empty patientAction.id ? 'Új beteg felvétele' : 'Beteg adatainak szerkesztése'}</h1>
+		<h1>#{empty userAction.id ? 'Regisztráció' : 'Felhasználó adatainak szerkesztése'}</h1>
 		
-		<h:form id="patientEditForm">
+		<h:form id="userEditForm">
 
 			<div>
 				<h:outputLabel 
-					for="patientName" 
+					for="userName" 
 					value="Név: "/>
 				<h:inputText 
-					id="patientName" 
-					value="#{patientAction.entity.name}"
+					id="userName" 
+					value="#{userAction.entity.name}"
 					required="true" />
 				<h:message 
-					for="patientName" 
+					for="userName" 
 					styleClass="error" />
 			</div>
 			
 			<div>
 				<h:outputLabel 
-					for="patientBirthDate" 
+					for="userEmail" 
+					value="E-mail: "/>
+				<h:inputText 
+					id="userEmail" 
+					value="#{userAction.entity.email}"
+					required="true" />
+				<h:message 
+					for="userEmail" 
+					styleClass="error" />
+			</div>
+
+			<div>
+				<h:outputLabel 
+					for="userPassword" 
+					value="Jelszó: "/>
+				<h:inputSecret 
+					id="userPassword" 
+					value="#{userAction.entity.password}"
+					required="true" />
+				<h:message 
+					for="userPassword" 
+					styleClass="error" />
+			</div>
+						
+			<div>
+				<h:outputLabel 
+					for="userBirthDate" 
 					value="Születési dátum: "/>
 				<h:inputText 
-					id="patientBirthDate" 
-					value="#{patientAction.entity.birthDate}"
+					id="userBirthDate" 
+					value="#{userAction.entity.birthDate}"
 					required="true">
 					<f:convertDateTime pattern="yyyy. MM. dd." />
 				</h:inputText>
 				<h:message 
-					for="patientBirthDate" 
+					for="userBirthDate" 
 					styleClass="error" />
 			</div>
 			
 			<div>
 				<h:outputLabel 
-					for="patientCountry" 
+					for="userCountry" 
 					value="Ország: "/>
 				<h:inputText 
-					id="patientCountry" 
-					value="#{patientAction.entity.address.country}"
+					id="userCountry" 
+					value="#{userAction.entity.address.country}"
 					required="true" />
 				<h:message 
-					for="patientCountry" 
+					for="userCountry" 
 					styleClass="error" />
 			</div>
 			
 			<div>
 				<h:outputLabel 
-					for="patientCity" 
+					for="userCity" 
 					value="Város: "/>
 				<h:inputText 
-					id="patientCity" 
-					value="#{patientAction.entity.address.city}"
+					id="userCity" 
+					value="#{userAction.entity.address.city}"
 					required="true" />
 				<h:message 
-					for="patientCity" 
+					for="userCity" 
 					styleClass="error" />
 			</div>
 			
 			<div>
 				<h:outputLabel 
-					for="patientStreet" 
+					for="userStreet" 
 					value="Utca: "/>
 				<h:inputText 
-					id="patientStreet" 
-					value="#{patientAction.entity.address.street}"
+					id="userStreet" 
+					value="#{userAction.entity.address.street}"
 					required="true" />
 				<h:message 
-					for="patientStreet" 
+					for="userStreet" 
 					styleClass="error" />
 			</div>
 			
 			<div>
 				<h:outputLabel 
-					for="patientNumber" 
+					for="userNumber" 
 					value="Házszám: "/>
 				<h:inputText 
-					id="patientNumber" 
-					value="#{patientAction.entity.address.number}"
+					id="userNumber" 
+					value="#{userAction.entity.address.number}"
 					required="true" />
 				<h:message 
-					for="patientNumber" 
+					for="userNumber" 
 					styleClass="error" />
 			</div>
 			
 			<h:commandLink
 				value="Mentés" 
-				action="#{patientAction.persist()}" />
+				action="#{userAction.persist()}" />
 				
 			<h:link
 				value="Vissza"
-				outcome="/content/patient/list" />
+				outcome="/index" />
 		
 		</h:form>
 
