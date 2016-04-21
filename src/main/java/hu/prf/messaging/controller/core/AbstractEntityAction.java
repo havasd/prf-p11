@@ -53,6 +53,7 @@ public abstract class AbstractEntityAction<EntityType, IdentifierType extends Se
 	@Transactional
 	public String persist() {
 		// Entity instance is detached here in case of editing, so merge() should be used instead of persist().
+		logger.severe("Persist object: " + getEntity().toString());
 		getEntityDao().merge(getEntity());
 		return getNavigationTargetAfterPersist();
 	}
@@ -82,6 +83,10 @@ public abstract class AbstractEntityAction<EntityType, IdentifierType extends Se
 	
 	public EntityType getEntity() {
 		return entity;
+	}
+	
+	public void setEntity(EntityType entity) {
+		this.entity = entity;
 	}
 
 }
