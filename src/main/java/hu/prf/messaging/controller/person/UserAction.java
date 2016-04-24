@@ -3,8 +3,8 @@ package hu.prf.messaging.controller.person;
 import hu.prf.messaging.controller.core.AbstractEntityAction;
 import hu.prf.messaging.dao.core.GenericDAO;
 import hu.prf.messaging.dao.user.UserDAO;
-import hu.prf.messaging.entity.place.Address;
-import hu.prf.messaging.entity.user.User;
+import hu.prf.messaging.entity.Address;
+import hu.prf.messaging.entity.User;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;

@@ -4,9 +4,15 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/templates/default.xhtml">
+		
+	<f:metadata>
+		<f:viewAction action="#{login.init()}" />
+	</f:metadata>
 	
 	<ui:define name="content">
+	
 		<h:form>
+		
 		   <h:panelGrid columns="3" rendered="#{!login.loggedIn}">
 		      <f:validateBean>
 		         <h:outputLabel for="email">Email:</h:outputLabel>
@@ -24,8 +30,17 @@
      		  <h:commandButton value="Bejelentkezés" action="#{login.login}"/>
 		   	  <h:button value="Regisztráció" outcome="/content/user/edit"/>
 		   </h:panelGrid>
-		   <h:commandButton value="Kijelentkezés" action="#{login.logout}" rendered="#{login.loggedIn}"/>
+		   
+		   <h:panelGroup layout="block" rendered="#{login.loggedIn}">
+	           Hello #{login.currentUser.name}
+	           <br />
+				<h:link value="Kijelentkezés" outcome="index" >
+				    <f:param name="a" value="logout" />
+				</h:link>
+           </h:panelGroup>
+		   
 		</h:form>
+		
 	</ui:define>
 	
 </ui:composition>

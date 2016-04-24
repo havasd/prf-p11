@@ -3,20 +3,20 @@ package hu.prf.messaging.util;
 import hu.prf.messaging.controller.core.AbstractEntityAction;
 import hu.prf.messaging.dao.core.GenericDAO;
 import hu.prf.messaging.dao.user.UserDAO;
-import hu.prf.messaging.entity.place.Address;
-import hu.prf.messaging.entity.user.User;
+import hu.prf.messaging.entity.Address;
+import hu.prf.messaging.entity.User;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import java.util.logging.Logger;
 
-@SessionScoped @Named
+@Named
 public class Login extends AbstractEntityAction<User, Long> implements Serializable {
    /**
 	 * 
@@ -24,6 +24,9 @@ public class Login extends AbstractEntityAction<User, Long> implements Serializa
 	private static final long serialVersionUID = 7534503603164943071L;
 
 	private static final String NAVIGATION_TARGET_AFTER_PERSIST = "/index";
+	
+	@Inject
+	private HttpServletRequest request;
 	
 	@Inject
 	private Logger logger;
@@ -39,11 +42,21 @@ public class Login extends AbstractEntityAction<User, Long> implements Serializa
 		load();
 	}
 	
+	public void init() {
+		logger.severe("Login#init: param(a) = " + request.getParameter("a"));
+		if (Objects.equals(request.getParameter("a"), "logout")) {
+			logout();
+		}
+	}
+	
 	public void login() {
 		logger.severe("Entered login.");
 		List<User> results = ((UserDAO)getEntityDao()).findByEmailAndPassword(credentials.getEmail(), credentials.getPassword());
 		if (!results.isEmpty()) {
-			setEntity(results.get(0));
+			User user = results.get(0);
+			request.getSession().setAttribute("user", user);
+			
+			setEntity(user);
 			setId(getEntity().getId());
 			logger.severe("Account identified. User: " + getEntity().toString());
 		}
@@ -54,14 +67,16 @@ public class Login extends AbstractEntityAction<User, Long> implements Serializa
 	}
 
 	public void logout() {
-		logger.severe("Logging out." + getEntity().toString());
-		persist();
+		logger.severe("Logging out.");
+		
+		request.getSession().invalidate();
+		
 		setEntity(null);
 		setId(null);
 	}
 
 	public boolean isLoggedIn() {
-		return getId() != null;
+		return request.getSession().getAttribute("user") != null;
 	}
 
 	@Override
@@ -79,8 +94,8 @@ public class Login extends AbstractEntityAction<User, Long> implements Serializa
 		return NAVIGATION_TARGET_AFTER_PERSIST;
 	}
 
-	
-	@Produces @LoggedIn User getCurrentUser() {
-		return getEntity();
+	public User getCurrentUser() {
+		return (User) request.getSession().getAttribute("user");
 	}
+	
 }

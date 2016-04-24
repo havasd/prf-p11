@@ -1,4 +1,4 @@
-package hu.prf.messaging.entity.place;
+package hu.prf.messaging.entity;
 
 import java.io.Serializable;
 

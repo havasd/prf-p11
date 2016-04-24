@@ -1,7 +1,7 @@
 package hu.prf.messaging.dao.user;
 
 import hu.prf.messaging.dao.core.GenericDAO;
-import hu.prf.messaging.entity.user.User;
+import hu.prf.messaging.entity.User;
 
 import java.util.List;
 

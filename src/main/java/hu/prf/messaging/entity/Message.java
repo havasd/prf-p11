@@ -1,6 +1,4 @@
-package hu.prf.messaging.entity.message;
-
-import hu.prf.messaging.entity.user.User;
+package hu.prf.messaging.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -28,17 +26,23 @@ public class Message implements Serializable {
 
 	@ManyToOne
 	private User sender;
+	
+	@ManyToOne
+	private User reciever;
 
 	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	public Message() {
+		
 	}
-
-	public Message(String text, User sender, Date date) {
+	
+	public Message(Long id, String text, User sender, User reciever, Date date) {
 		super();
+		this.id = id;
 		this.text = text;
 		this.sender = sender;
+		this.reciever = reciever;
 		this.date = date;
 	}
 
@@ -66,6 +70,14 @@ public class Message implements Serializable {
 		this.sender = sender;
 	}
 
+	public User getReciever() {
+		return reciever;
+	}
+
+	public void setReciever(User reciever) {
+		this.reciever = reciever;
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -74,6 +86,13 @@ public class Message implements Serializable {
 		this.date = date;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	/**
+	 * TODO: update if needed
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -84,6 +103,9 @@ public class Message implements Serializable {
 		return result;
 	}
 
+	/**
+	 * TODO: update if needed
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
