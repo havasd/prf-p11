@@ -1,20 +1,20 @@
 package hu.prf.messaging.util;
 
+import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
+import java.util.logging.Logger;
+
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+
 import hu.prf.messaging.controller.core.AbstractEntityAction;
 import hu.prf.messaging.dao.core.GenericDAO;
 import hu.prf.messaging.dao.user.UserDAO;
 import hu.prf.messaging.entity.Address;
 import hu.prf.messaging.entity.User;
-
-import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-
-import java.util.logging.Logger;
 
 @Named
 public class Login extends AbstractEntityAction<User, Long> implements Serializable {
@@ -59,6 +59,12 @@ public class Login extends AbstractEntityAction<User, Long> implements Serializa
 			setEntity(user);
 			setId(getEntity().getId());
 			logger.severe("Account identified. User: " + getEntity().toString());
+			
+			try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("content/home.xhtml");
+			} catch (Exception e) {
+				logger.severe("Login#login: redirect failed");
+			}
 		}
 		else {
 			logger.severe("Account not found returning.");

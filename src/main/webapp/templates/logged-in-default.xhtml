@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/default.xhtml">
+    
+    <ui:define name="content">
+    
+        <h:panelGroup layout="block" rendered="#{login.loggedIn}">
+    
+	        <div id="menu">
+	            <ul>
+	                <li>
+	                    <h:link value="Felhasználók" outcome="#" />
+	                </li>
+	                <li>
+	                    <h:link value="Csoportok" outcome="#" />
+	                </li>
+	                <li>
+		                <h:link value="Kijelentkezés" outcome="/index">
+		                    <f:param name="a" value="logout" />
+		                </h:link>
+	                </li>
+	            </ul>
+	        </div>
+	        
+	        <div id="mainContent">
+				<ui:insert name="mainContent">
+	                [Template content will be inserted here]
+				</ui:insert>
+	        </div>
+	        
+	        <div class="clear"></div>
+        
+        </h:panelGroup>
+        <h:panelGroup layout="block" rendered="#{!login.loggedIn}">
+            Nem vagy bejelentkezve!
+        </h:panelGroup>
+        
+    </ui:define>
+    
+</ui:composition>

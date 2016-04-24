@@ -46,6 +46,23 @@ body {
 	margin: 20px;
 }
 
+#menu {
+	float: left;
+	width: 200px;
+	border: 1px solid #cccccc;
+}
+
+.clear {
+	clear: both;
+}
+
+#mainContent {
+	float: right;
+	border: 1px solid #cccccc;
+	width: 555px;
+	padding: 10px;
+}
+
 #aside {
 	font-size: 0.9em;
 	width: 275px;

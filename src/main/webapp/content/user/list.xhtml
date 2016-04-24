@@ -3,19 +3,18 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	template="/templates/default.xhtml">
+	template="/templates/logged-in-default.xhtml">
 	
-	<f:metadata>
-		<f:event 
-			type="preRenderView"
-			listener="#{patientDataModel.load()}" />
-	</f:metadata>
+    <f:metadata>
+        <f:viewParam name="id" value="#{login.id}" />
+        <f:event type="preRenderView" listener="#{login.load()}" />
+    </f:metadata>
 	
-	<ui:define name="content">
+	<ui:define name="mainContent">
 	
-		<h1>Betegek listája</h1>
+		<h1>Felhasználók</h1>
 
-		<h:form id="patientListForm">
+		<h:form id="userListForm">
 			
 			<div>
 				<h:outputText

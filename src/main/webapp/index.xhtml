@@ -31,14 +31,6 @@
 		   	  <h:button value="Regisztráció" outcome="/content/user/edit"/>
 		   </h:panelGrid>
 		   
-		   <h:panelGroup layout="block" rendered="#{login.loggedIn}">
-	           Hello #{login.currentUser.name}
-	           <br />
-				<h:link value="Kijelentkezés" outcome="index" >
-				    <f:param name="a" value="logout" />
-				</h:link>
-           </h:panelGroup>
-		   
 		</h:form>
 		
 	</ui:define>
