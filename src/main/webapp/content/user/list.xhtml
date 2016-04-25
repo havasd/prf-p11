@@ -5,11 +5,6 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/templates/logged-in-default.xhtml">
 	
-    <f:metadata>
-        <f:viewParam name="id" value="#{login.id}" />
-        <f:event type="preRenderView" listener="#{login.load()}" />
-    </f:metadata>
-	
 	<ui:define name="mainContent">
 	
 		<h1>Felhasználók</h1>

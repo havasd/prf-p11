@@ -35,9 +35,9 @@ public class UserDAO extends GenericDAO<User, Long> {
 	}
 
 	public List<User> listOtherUsers() {
-		User loggedInUser = session.getUser();
+		long id = session.getUserId();
 		TypedQuery<User> q = getEntityManager().createQuery("select u from User u where u.id <> :id order by u.name", User.class);
-		q.setParameter("id", loggedInUser.getId());
+		q.setParameter("id", id);
 		return q.getResultList();
 	}
 

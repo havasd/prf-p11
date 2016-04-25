@@ -61,7 +61,8 @@ public class Login extends AbstractEntityAction<User, Long> implements Serializa
 		List<User> results = ((UserDAO)getEntityDao()).findByEmailAndPassword(credentials.getEmail(), credentials.getPassword());
 		if (!results.isEmpty()) {
 			User user = results.get(0);
-			session.setUser(user);
+
+			session.setUserId(user.getId());
 
 			setEntity(user);
 			setId(getEntity().getId());
@@ -108,7 +109,7 @@ public class Login extends AbstractEntityAction<User, Long> implements Serializa
 	}
 
 	public User getCurrentUser() {
-		return session.getUser();
+		return userDAO.findEntity(session.getUserId());
 	}
 
 }

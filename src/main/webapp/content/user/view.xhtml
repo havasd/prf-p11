@@ -5,9 +5,27 @@
     xmlns:h="http://java.sun.com/jsf/html"
     template="/templates/logged-in-default.xhtml">
 
+	<f:metadata>
+		<f:viewParam name="u" value="#{userView.id}" />
+		<f:viewAction action="#{userView.load()}" />
+	</f:metadata>
+
     <ui:define name="mainContent">
     
-        <h1>Felhasználó</h1>
+        <h:panelGroup layout="block" rendered="#{empty userView.user}">
+            <h1>Felhasználó</h1>
+            Nincs ilyen felhasználó.
+        </h:panelGroup>
+        
+        <h:panelGroup layout="block" rendered="#{not empty userView.user}">
+            <h1>#{userView.user.name}</h1>
+            <h:panelGroup layout="block" rendered="#{userView.user.id == login.currentUser.id}">
+                <h:link value="Szerkesztés" outcome="/content/user/edit.xhtml"/>
+            </h:panelGroup>
+            <div>email: #{userView.user.email}</div>
+            <div>született: #{userView.user.birthDate}</div>
+            <div>cím: #{userView.user.address.country}, #{userView.user.address.city}</div>
+        </h:panelGroup>
 
     </ui:define>
     

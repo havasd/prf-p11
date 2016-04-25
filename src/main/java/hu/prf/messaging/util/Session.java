@@ -6,8 +6,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-import hu.prf.messaging.entity.User;
-
 @Named
 public class Session implements Serializable {
 
@@ -16,16 +14,16 @@ public class Session implements Serializable {
 	@Inject
 	private HttpServletRequest request;
 
-	public User getUser() {
-		return (User) request.getSession().getAttribute("user");
+	public long getUserId() {
+		return (Long) request.getSession().getAttribute("user-id");
 	}
 
-	public void setUser(User user) {
-		request.getSession().setAttribute("user", user);
+	public void setUserId(long userId) {
+		request.getSession().setAttribute("user-id", userId);
 	}
 
 	public boolean isLoggedIn() {
-		return request.getSession().getAttribute("user") != null;
+		return request.getSession().getAttribute("user-id") != null;
 	}
 
 	public void invalidate() {
