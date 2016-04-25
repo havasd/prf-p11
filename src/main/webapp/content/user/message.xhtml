@@ -3,11 +3,58 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     template="/templates/logged-in-default.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="u" value="#{messageView.id}" />
+        <f:viewAction action="#{messageView.load()}" />
+    </f:metadata>
 
     <ui:define name="mainContent">
     
-        <h1>Üzenetek</h1>
+        <h:panelGroup layout="block" rendered="#{empty messageView.otherUser}">
+	        <h1>Üzenetek</h1>
+	        <h:outputText value="Nincs megjeleníthető felhasználó." />
+        </h:panelGroup>
+        
+        <h:panelGroup layout="block" rendered="#{not empty messageView.otherUser}">
+        
+            <h1>
+                <h:link value="#{messageView.otherUser.name}" outcome="/content/user/view.xhtml">
+                    <f:param name="u" value="#{messageView.otherUser.id}" />
+                </h:link>
+                - Üzenetek
+            </h1>
+        
+            <ui:repeat value="#{messageView.messages}" var="message">
+	            <div class="message">
+	                <div class="message-sender">#{message.sender.name}</div>
+	                <div class="message-date">
+		                <h:outputText value="#{message.date}">
+						  <f:convertDateTime pattern="yyyy. MM. dd. HH:mm:ss" />
+						</h:outputText>
+                    </div>
+	                <div class="message-content">#{message.text}</div>
+	            </div>
+            </ui:repeat>
+            
+            <div>
+	            <h:form>
+	                <h:inputTextarea a:class="new-message-text"
+	                   a:placeholder="Új üzenet..."
+	                   value="#{messageView.newMessageText}" />
+	                <div class="right">
+	                    <h:commandButton value="Küldés"
+	                       a:class="submit-button"
+	                       type="submit"
+	                       action="#{messageView.sendNewMessage()}" />
+	                </div>
+	                <div class="clear"></div>
+	            </h:form>
+            </div>
+        
+        </h:panelGroup>
 
     </ui:define>
     

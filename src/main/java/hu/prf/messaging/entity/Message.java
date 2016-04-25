@@ -26,20 +26,18 @@ public class Message implements Serializable {
 
 	@ManyToOne
 	private User sender;
-	
+
 	@ManyToOne
 	private User reciever;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
 	public Message() {
-		
+
 	}
-	
-	public Message(Long id, String text, User sender, User reciever, Date date) {
-		super();
-		this.id = id;
+
+	public Message(String text, User sender, User reciever, Date date) {
 		this.text = text;
 		this.sender = sender;
 		this.reciever = reciever;
@@ -88,52 +86,6 @@ public class Message implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	/**
-	 * TODO: update if needed
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + text.hashCode();
-		result = prime * result + sender.hashCode();
-		result = prime * result + date.hashCode();
-		return result;
-	}
-
-	/**
-	 * TODO: update if needed
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Message other = (Message) obj;
-		if (text == null) {
-			if (other.text != null)
-				return false;
-		} else if (!text.equals(other.text))
-			return false;
-
-		if (!sender.equals(other.sender)) {
-			return false;
-		}
-		if (!date.equals(other.date)) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Message [id=" + id + ", text=" + text + ", sender=" + sender
-				+ ", date=" + date + "]";
 	}
 
 }

@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,9 +36,6 @@ public class User implements Serializable {
 	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Group> groups;
 
-	@OneToMany
-	private List<Message> messages;
-
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 
@@ -49,7 +45,7 @@ public class User implements Serializable {
 	public User() {
 	}
 
-	public User(Long id, String name, String email, String password, List<Group> groups, List<Message> messages,
+	public User(Long id, String name, String email, String password, List<Group> groups,
 			Date birthDate, Address address) {
 		super();
 		this.id = id;
@@ -57,7 +53,6 @@ public class User implements Serializable {
 		this.email = email;
 		this.password = password;
 		this.groups = groups;
-		this.messages = messages;
 		this.birthDate = birthDate;
 		this.address = address;
 	}
@@ -100,14 +95,6 @@ public class User implements Serializable {
 
 	public void setGroups(List<Group> groups) {
 		this.groups = groups;
-	}
-
-	public List<Message> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(List<Message> messages) {
-		this.messages = messages;
 	}
 
 	public Date getBirthDate() {
