@@ -1,5 +1,6 @@
 package hu.prf.messaging.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -11,23 +12,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "post")
-public class Post {
+public class Post implements Serializable {
+
+	private static final long serialVersionUID = 2581046445963302896L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int id;
-	
+
 	@ManyToOne
 	private User sender;
-	
+
 	private String text;
-	
+
 	private Date date;
 
 	public Post() {
-		
+
 	}
-	
+
 	public Post(int id, User sender, String text, Date date) {
 		super();
 		this.id = id;
@@ -67,5 +70,5 @@ public class Post {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-package hu.prf.messaging.dao.core;
+package hu.prf.messaging.dao;
 
 import java.io.Serializable;
 import java.util.List;

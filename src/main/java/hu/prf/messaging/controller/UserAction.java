@@ -1,8 +1,7 @@
-package hu.prf.messaging.controller.person;
+package hu.prf.messaging.controller;
 
-import hu.prf.messaging.controller.core.AbstractEntityAction;
-import hu.prf.messaging.dao.core.GenericDAO;
-import hu.prf.messaging.dao.user.UserDAO;
+import hu.prf.messaging.dao.GenericDAO;
+import hu.prf.messaging.dao.UserDAO;
 import hu.prf.messaging.entity.Address;
 import hu.prf.messaging.entity.User;
 
@@ -13,26 +12,23 @@ import javax.inject.Named;
 @Named
 @ViewScoped
 public class UserAction extends AbstractEntityAction<User, Long> {
-	
+
 	private static final long serialVersionUID = -7067061243883686127L;
-	
+
 	private static final String NAVIGATION_TARGET_AFTER_PERSIST = "index";
-	
+
 	@Inject
 	private UserDAO userDAO;
-	
-	//@Inject
-	//private MeasurementDataDAO measurementDataDAO;
 
 	public UserAction() {
 		super(User.class);
 	}
-	
+
 	@Override
 	protected void afterCreation() {
 		getEntity().setAddress(new Address());
 	}
-	
+
 	@Override
 	protected void beforeRemoving(User entityToRemove) {
 		// groups messages ?

@@ -14,87 +14,32 @@
 	
 		<h1>Felhasználók</h1>
 
-		<h:form id="userListForm">
+        <h:outputText value="Nincs megjeleníthető felhasználó." rendered="#{empty userDAO.listOtherUsers()}" />
+
+		<h:dataTable
+			value="#{userDAO.listOtherUsers()}"
+			var="user"
+			styleClass="simpletablestyle"
+			rendered="#{not empty userDAO.listOtherUsers()}">
 			
-			<div>
-				<h:outputText
-					value="Még nem vettek fel beteget az adatbázisba"
-					rendered="#{empty patientDataModel.list}" />
-			</div>
+			<h:column>
+				<div>
+					<h:link value="#{user.name}" outcome="/content/user/view.xhtml">
+					    <f:param name="u" value="#{user.id}" />
+					</h:link>
+				</div>
+				<div>
+					<h:outputText value="#{user.email}" />
+	            </div>
+			</h:column>
+			
+			<h:column>
+				<h:link value="Üzenet" outcome="/content/user/message.xhtml">
+					<f:param name="u" value="#{user.id}" />
+				</h:link>
+			</h:column>
 		
-			<h:dataTable 
-				id="patientTable"
-				value="#{patientDataModel.list}"
-				var="patient"
-				rendered="#{not empty patientDataModel.list}"
-				styleClass="simpletablestyle">
-				
-				<h:column>
-					<f:facet name="header">Név</f:facet>
-					<h:outputText value="#{patient.name}" />
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Születési dátum</f:facet>
-					<h:outputText value="#{patient.birthDate}">
-						<f:convertDateTime pattern="yyyy. MM. dd." />
-					</h:outputText>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Lakcím</f:facet>
-					<h:outputText value="#{patient.address.country}, #{patient.address.city}, #{patient.address.street} #{patient.address.number}" />
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Műveletek</f:facet>
-					
-					<div>
-						<h:link 
-							value="Testsúly mérési adatok" 
-							outcome="/content/weightdata/list">
-							<f:param 
-								name="patient" 
-								value="#{patient.id}" />
-						</h:link>
-					</div>
-					
-					<div>
-						<h:link 
-							value="Vérnyomás mérési adatok" 
-							outcome="/content/bloodpressuredata/list">
-							<f:param 
-								name="patient" 
-								value="#{patient.id}" />
-						</h:link>
-					</div>
-					
-					<div>
-						<h:link 
-							value="Szerkesztés" 
-							outcome="/content/patient/edit">
-							<f:param 
-								name="id" 
-								value="#{patient.id}" />
-						</h:link>
-						
-						<h:commandLink
-							value="Törlés" 
-							action="#{patientAction.remove(patient.id)}" />
-					</div>
-					
-				</h:column>
-			
-			</h:dataTable>
-			
-			<h:link
-				value="Új beteg felvétele"
-				outcome="/content/patient/edit" />
-			<h:link
-				value="Vissza"
-				outcome="/index" />
-				
-		</h:form>
+		</h:dataTable>
 
 	</ui:define>
 </ui:composition>

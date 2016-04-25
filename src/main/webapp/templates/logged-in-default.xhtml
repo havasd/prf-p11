@@ -11,11 +11,16 @@
     
 	        <div id="menu">
 	            <ul>
+	               <li>
+                        <h:link value="Profil" outcome="/content/user/view.xhtml">
+                            <f:param name="u" value="#{login.currentUser.id}" />
+                        </h:link>
+                    </li>
 	                <li>
-	                    <h:link value="Felhasználók" outcome="#" />
+	                    <h:link value="Felhasználók" outcome="/content/user/list.xhtml" />
 	                </li>
 	                <li>
-	                    <h:link value="Csoportok" outcome="#" />
+	                    <h:link value="Csoportok" outcome="/content/group/list.xhtml" />
 	                </li>
 	                <li>
 		                <h:link value="Kijelentkezés" outcome="/index">
@@ -34,6 +39,7 @@
 	        <div class="clear"></div>
         
         </h:panelGroup>
+        
         <h:panelGroup layout="block" rendered="#{!login.loggedIn}">
             Nem vagy bejelentkezve!
         </h:panelGroup>

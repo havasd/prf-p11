@@ -21,33 +21,32 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "user",
        uniqueConstraints = @UniqueConstraint(name = "unique_name", columnNames = {"email"}))
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = -1583355608420130917L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private Long id;
-	
+
 	private String name;
-	
+
 	private String email;
-	
+
 	private String password;
-	
+
 	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private List<Group> groups;
 
 	@OneToMany
 	private List<Message> messages;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
-	
+
 	@Embedded
 	private Address address;
-	
+
 	public User() {
-		
 	}
 
 	public User(Long id, String name, String email, String password, List<Group> groups, List<Message> messages,

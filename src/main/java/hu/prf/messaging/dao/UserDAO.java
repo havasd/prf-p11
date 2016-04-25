@@ -1,21 +1,31 @@
-package hu.prf.messaging.dao.user;
-
-import hu.prf.messaging.dao.core.GenericDAO;
-import hu.prf.messaging.entity.User;
+package hu.prf.messaging.dao;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.TypedQuery;
 
+import hu.prf.messaging.entity.User;
+import hu.prf.messaging.util.Session;
+
+@Named
 public class UserDAO extends GenericDAO<User, Long> {
 
 	private static final long serialVersionUID = -5859058016736013679L;
+
+	@Inject
+	private Logger logger;
+
+	@Inject
+	private Session session;
 
 	public UserDAO() {
 		super(User.class);
 	}
 
-	public  List<User> findByEmailAndPassword(String email, String password) {
+	public List<User> findByEmailAndPassword(String email, String password) {
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("select ");
 		queryBuilder.append("	u ");
@@ -23,10 +33,19 @@ public class UserDAO extends GenericDAO<User, Long> {
 		queryBuilder.append("	User u ");
 		queryBuilder.append("where ");
 		queryBuilder.append("	u.email = :email and u.password = :password");
-		
+
 		TypedQuery<User> query = getEntityManager().createQuery(queryBuilder.toString(), getEntityClass());
 		query.setParameter("email", email);
 		query.setParameter("password", password);
 		return query.getResultList();
 	}
+
+	public List<User> listOtherUsers() {
+		User loggedInUser = session.getUser();
+		TypedQuery<User> q = getEntityManager().createQuery("select u from User u where u.id <> :id order by u.name", User.class);
+		q.setParameter("id", loggedInUser.getId());
+		logger.severe("ASDQWEQWEQWE; " + q.toString() + "; " + loggedInUser.getId());
+		return q.getResultList();
+	}
+
 }
