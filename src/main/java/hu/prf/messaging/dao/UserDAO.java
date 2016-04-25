@@ -1,12 +1,9 @@
 package hu.prf.messaging.dao;
 
 import java.util.List;
-import java.util.logging.Logger;
-
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.TypedQuery;
-
 import hu.prf.messaging.entity.User;
 import hu.prf.messaging.util.Session;
 
@@ -14,9 +11,6 @@ import hu.prf.messaging.util.Session;
 public class UserDAO extends GenericDAO<User, Long> {
 
 	private static final long serialVersionUID = -5859058016736013679L;
-
-	@Inject
-	private Logger logger;
 
 	@Inject
 	private Session session;
@@ -44,7 +38,6 @@ public class UserDAO extends GenericDAO<User, Long> {
 		User loggedInUser = session.getUser();
 		TypedQuery<User> q = getEntityManager().createQuery("select u from User u where u.id <> :id order by u.name", User.class);
 		q.setParameter("id", loggedInUser.getId());
-		logger.severe("ASDQWEQWEQWE; " + q.toString() + "; " + loggedInUser.getId());
 		return q.getResultList();
 	}
 
