@@ -30,6 +30,8 @@ public class Message implements Serializable {
 	@ManyToOne
 	private User reciever;
 
+	private boolean seen;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
@@ -37,11 +39,12 @@ public class Message implements Serializable {
 
 	}
 
-	public Message(String text, User sender, User reciever, Date date) {
+	public Message(String text, User sender, User reciever, Date date, boolean seen) {
 		this.text = text;
 		this.sender = sender;
 		this.reciever = reciever;
 		this.date = date;
+		this.seen = seen;
 	}
 
 	public Long getId() {
@@ -84,8 +87,12 @@ public class Message implements Serializable {
 		this.date = date;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public boolean isSeen() {
+		return seen;
+	}
+
+	public void setSeen(boolean seen) {
+		this.seen = seen;
 	}
 
 }

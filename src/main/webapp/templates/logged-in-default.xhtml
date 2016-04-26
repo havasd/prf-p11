@@ -12,6 +12,9 @@
 	        <div id="menu">
 	            <ul>
 	               <li>
+                       <h:link value="Kezdőlap" outcome="/content/home.xhtml" />
+                   </li>
+	               <li>
                         <h:link value="Profil" outcome="/content/user/view.xhtml">
                             <f:param name="u" value="#{login.currentUser.id}" />
                         </h:link>

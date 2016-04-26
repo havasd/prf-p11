@@ -41,4 +41,18 @@ public class UserDAO extends GenericDAO<User, Long> {
 		return q.getResultList();
 	}
 
+	public List<User> getUnseenMessageSenders() {
+		TypedQuery<User> q = getEntityManager().createQuery(
+			"select u " +
+			"from User u " +
+				"where u in (" +
+				"select m.sender " +
+				"from Message m " +
+				"where m.reciever.id = :uid and m.seen = false" +
+			")",
+			User.class);
+		q.setParameter("uid", session.getUserId());
+		return q.getResultList();
+	}
+
 }

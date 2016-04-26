@@ -80,17 +80,19 @@ public class MessageView implements Serializable {
 		this.newMessageText = newMessageText;
 	}
 
+	@Transactional
 	public void load() {
 		loggedInUser = userDAO.findEntity(session.getUserId());
 		otherUser = userDAO.findEntity(id);
 		if (loggedInUser != null && otherUser != null) {
 			messages = messageDAO.getTwoUsersMessages(loggedInUser.getId(), otherUser.getId());
+			messageDAO.setMessagesToSeen(loggedInUser.getId(), otherUser.getId());
 		}
 	}
 
 	@Transactional
 	public String sendNewMessage() {
-		Message message = new Message(newMessageText, loggedInUser, otherUser, new Date());
+		Message message = new Message(newMessageText, loggedInUser, otherUser, new Date(), false);
 		messageDAO.persist(message);
 		return "/content/user/message.xhtml?faces-redirect=true&u=" + otherUser.getId();
 	}
