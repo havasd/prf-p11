@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/logged-out-default.xhtml">
+    
+    <ui:define name="contentFull">
+    
+        <h:form>
+        
+           <h:panelGrid columns="3">
+              <f:validateBean>
+                 <h:outputLabel for="email">Email:</h:outputLabel>
+                 <h:inputText id="email" value="#{loginController.email}" required="true"
+                    requiredMessage="Please enter your email address."
+                    validatorMessage="Invalid email format">
+                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                 </h:inputText>
+                 <h:message for="email" style="color:red" />
+                 
+                 <h:outputLabel for="password">Password:</h:outputLabel>
+                 <h:inputSecret id="password" value="#{loginController.password}"/>
+                 <h:message for="password" style="color:red" />
+              </f:validateBean>
+              <h:commandButton value="Bejelentkezés" action="#{loginController.login()}"/>
+              <h:button value="Regisztráció" outcome="/content/register.xhtml"/>
+           </h:panelGrid>
+           
+        </h:form>
+        
+    </ui:define>
+    
+</ui:composition>

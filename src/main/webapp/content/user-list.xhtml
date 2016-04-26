@@ -5,7 +5,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/templates/logged-in-default.xhtml">
 	
-	<ui:define name="mainContent">
+	<ui:define name="content">
 	
 		<h1>Felhasználók</h1>
 
@@ -19,7 +19,7 @@
 			
 			<h:column>
 				<div>
-					<h:link value="#{user.name}" outcome="/content/user/view.xhtml">
+					<h:link value="#{user.name}" outcome="/content/user-view.xhtml">
 					    <f:param name="u" value="#{user.id}" />
 					</h:link>
 				</div>
@@ -29,7 +29,7 @@
 			</h:column>
 			
 			<h:column>
-				<h:link value="Üzenet" outcome="/content/user/message.xhtml">
+				<h:link value="Üzenet" outcome="/content/message.xhtml">
 					<f:param name="u" value="#{user.id}" />
 				</h:link>
 			</h:column>

@@ -3,36 +3,10 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    template="/templates/default.xhtml">
+    template="/templates/logged-out-default.xhtml">
 
     <f:metadata>
-        <f:viewAction action="#{login.init()}" />
+        <f:viewAction action="#{indexController.init()}" />
     </f:metadata>
-    
-    <ui:define name="content">
-    
-        <h:form>
-        
-           <h:panelGrid columns="3" rendered="#{!login.loggedIn}">
-              <f:validateBean>
-                 <h:outputLabel for="email">Email:</h:outputLabel>
-                 <h:inputText id="email" value="#{credentials.email}" required="true"
-                    requiredMessage="Please enter your email address."
-                    validatorMessage="Invalid email format">
-                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                 </h:inputText>
-                 <h:message for="email" style="color:red" />
-                 
-                 <h:outputLabel for="password">Password:</h:outputLabel>
-                 <h:inputSecret id="password" value="#{credentials.password}"/>
-                 <h:message for="password" style="color:red" />
-              </f:validateBean>
-              <h:commandButton value="Bejelentkezés" action="#{login.login}"/>
-              <h:button value="Regisztráció" outcome="/content/user/register.xhtml"/>
-           </h:panelGrid>
-           
-        </h:form>
-        
-    </ui:define>
     
 </ui:composition>

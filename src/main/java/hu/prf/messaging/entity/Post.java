@@ -31,14 +31,6 @@ public class Post implements Serializable {
 
 	}
 
-	public Post(int id, User sender, String text, Date date) {
-		super();
-		this.id = id;
-		this.sender = sender;
-		this.text = text;
-		this.date = date;
-	}
-
 	public int getId() {
 		return id;
 	}

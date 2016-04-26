@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/logged-in-default.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="u" value="#{userController.id}" />
+		<f:viewAction action="#{userController.loadFromId()}" />
+	</f:metadata>
+
+    <ui:define name="content">
+    
+        <h:panelGroup layout="block" rendered="#{empty userController.user}">
+            <h1>Felhasználó</h1>
+            Nincs ilyen felhasználó.
+        </h:panelGroup>
+        
+        <h:panelGroup layout="block" rendered="#{not empty userController.user}">
+            <h1>#{userController.user.name}</h1>
+            <h:panelGroup layout="block" rendered="#{userController.user.id == indexController.userId()}">
+                <h:link value="Szerkesztés" outcome="/content/user-edit.xhtml"/>
+            </h:panelGroup>
+            <div>email: #{userController.user.email}</div>
+            <div>
+                született:
+				<h:outputText value="#{userController.user.birthDate}">
+				    <f:convertDateTime pattern="yyyy. MM. dd." />
+				</h:outputText>
+            </div>
+        </h:panelGroup>
+
+    </ui:define>
+    
+</ui:composition>

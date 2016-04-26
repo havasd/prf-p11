@@ -28,7 +28,7 @@ public class UserDAO extends GenericDAO<User, Long> {
 		queryBuilder.append("where ");
 		queryBuilder.append("	u.email = :email and u.password = :password");
 
-		TypedQuery<User> query = getEntityManager().createQuery(queryBuilder.toString(), getEntityClass());
+		TypedQuery<User> query = getEntityManager().createQuery(queryBuilder.toString(), User.class);
 		query.setParameter("email", email);
 		query.setParameter("password", password);
 		return query.getResultList();
@@ -53,6 +53,10 @@ public class UserDAO extends GenericDAO<User, Long> {
 			User.class);
 		q.setParameter("uid", session.getUserId());
 		return q.getResultList();
+	}
+
+	public User getLoggedInUser() {
+		return findEntity(session.getUserId());
 	}
 
 }

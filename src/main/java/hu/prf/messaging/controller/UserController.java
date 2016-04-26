@@ -1,4 +1,4 @@
-package hu.prf.messaging.view;
+package hu.prf.messaging.controller;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import hu.prf.messaging.util.Session;
 
 @Named
 @ViewScoped
-public class UserView implements Serializable {
+public class UserController implements Serializable {
 
 	private static final long serialVersionUID = -2130922499519394532L;
 
@@ -27,7 +27,7 @@ public class UserView implements Serializable {
 	@Inject
 	private Session session;
 
-	public void load() {
+	public void loadFromId() {
 		user = userDAO.findEntity((long) id);
 	}
 
@@ -42,7 +42,7 @@ public class UserView implements Serializable {
 			user.setPassword(oldUser.getPassword());
 		}
 		userDAO.merge(user);
-		return "/content/user/view.xhtml?faces-redirect=true&u=" + user.getId();
+		return "/content/user-view.xhtml?faces-redirect=true&u=" + user.getId();
 	}
 
 	public int getId() {

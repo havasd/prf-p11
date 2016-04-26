@@ -5,15 +5,15 @@
     xmlns:h="http://java.sun.com/jsf/html"
     template="/templates/logged-in-default.xhtml">
     
-    <ui:define name="mainContent">
+    <ui:define name="content">
     
-        <p>Hello, #{login.currentUser.name}!</p>
+        <p>Hello, #{userDAO.loggedInUser.name}!</p>
         
         <h:panelGroup layout="block" rendered="#{not empty userDAO.unseenMessageSenders}">
             <p>
 	            Új üzenetek:<br />
 	            <ui:repeat value="#{userDAO.unseenMessageSenders}" var="user">
-	                <h:link value="#{user.name}" outcome="/content/user/message.xhtml">
+	                <h:link value="#{user.name}" outcome="/content/message.xhtml">
 	                    <f:param name="u" value="#{user.id}" />
 	                </h:link>
 	            </ui:repeat>

@@ -5,9 +5,9 @@
     xmlns:h="http://java.sun.com/jsf/html"
     template="/templates/default.xhtml">
     
-    <ui:define name="content">
+    <ui:define name="container">
     
-        <h:panelGroup layout="block" rendered="#{login.loggedIn}">
+        <h:panelGroup layout="block" rendered="#{indexController.loggedIn()}">
     
 	        <div id="menu">
 	            <ul>
@@ -15,26 +15,26 @@
                        <h:link value="Kezdőlap" outcome="/content/home.xhtml" />
                    </li>
 	               <li>
-                        <h:link value="Profil" outcome="/content/user/view.xhtml">
-                            <f:param name="u" value="#{login.currentUser.id}" />
+                        <h:link value="Profil" outcome="/content/user-view.xhtml">
+                            <f:param name="u" value="#{indexController.userId()}" />
                         </h:link>
                     </li>
 	                <li>
-	                    <h:link value="Felhasználók" outcome="/content/user/list.xhtml" />
+	                    <h:link value="Felhasználók" outcome="/content/user-list.xhtml" />
 	                </li>
 	                <li>
-	                    <h:link value="Csoportok" outcome="/content/group/list.xhtml" />
+	                    <h:link value="Csoportok" outcome="/content/group-list.xhtml" />
 	                </li>
 	                <li>
-		                <h:link value="Kijelentkezés" outcome="/index">
+		                <h:link value="Kijelentkezés" outcome="/index.xhtml">
 		                    <f:param name="a" value="logout" />
 		                </h:link>
 	                </li>
 	            </ul>
 	        </div>
 	        
-	        <div id="mainContent">
-				<ui:insert name="mainContent">
+	        <div id="content">
+				<ui:insert name="content">
 	                [Template content will be inserted here]
 				</ui:insert>
 	        </div>
@@ -43,7 +43,7 @@
         
         </h:panelGroup>
         
-        <h:panelGroup layout="block" rendered="#{!login.loggedIn}">
+        <h:panelGroup layout="block" rendered="#{not indexController.loggedIn()}">
             Nem vagy bejelentkezve!
         </h:panelGroup>
         

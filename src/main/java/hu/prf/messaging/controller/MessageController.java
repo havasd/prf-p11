@@ -1,4 +1,4 @@
-package hu.prf.messaging.view;
+package hu.prf.messaging.controller;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,7 +17,7 @@ import hu.prf.messaging.util.Session;
 
 @Named
 @ViewScoped
-public class MessageView implements Serializable {
+public class MessageController implements Serializable {
 
 	private static final long serialVersionUID = 3346759248048030119L;
 
@@ -94,7 +94,7 @@ public class MessageView implements Serializable {
 	public String sendNewMessage() {
 		Message message = new Message(newMessageText, loggedInUser, otherUser, new Date(), false);
 		messageDAO.persist(message);
-		return "/content/user/message.xhtml?faces-redirect=true&u=" + otherUser.getId();
+		return "/content/message.xhtml?faces-redirect=true&u=" + otherUser.getId();
 	}
 
 }

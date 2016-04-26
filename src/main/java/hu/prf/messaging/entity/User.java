@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -39,22 +38,8 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date birthDate;
 
-	@Embedded
-	private Address address;
-
 	public User() {
-	}
 
-	public User(Long id, String name, String email, String password, List<Group> groups,
-			Date birthDate, Address address) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.groups = groups;
-		this.birthDate = birthDate;
-		this.address = address;
 	}
 
 	public Long getId() {
@@ -105,85 +90,4 @@ public class User implements Serializable {
 		this.birthDate = birthDate;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	/**
-	 * TODO: update if needed
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result
-				+ ((birthDate == null) ? 0 : birthDate.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((groups == null) ? 0 : groups.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((password == null) ? 0 : password.hashCode());
-		return result;
-	}
-
-	/**
-	 * TODO: update if needed
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (birthDate == null) {
-			if (other.birthDate != null)
-				return false;
-		} else if (!birthDate.equals(other.birthDate))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (groups == null) {
-			if (other.groups != null)
-				return false;
-		} else if (!groups.equals(other.groups))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email
-				+ ", password=" + password + ", groups=" + groups + ", birthDate="
-				+ birthDate + ", address=" + address + "]";
-	}
 }
