@@ -7,9 +7,11 @@
 	
 	<ui:define name="content">
 	
-		<h1>Felhasználók</h1>
+		<span class="subtitle">Felhasználók</span>
 
-        <h:outputText value="Nincs megjeleníthető felhasználó." rendered="#{empty userDAO.listOtherUsers()}" />
+        <h:panelGroup rendered="#{empty userDAO.listOtherUsers()}">
+            <p class="only-top-margin">Nincs megjeleníthető felhasználó.</p>
+        </h:panelGroup>
 
 		<h:dataTable
 			value="#{userDAO.listOtherUsers()}"

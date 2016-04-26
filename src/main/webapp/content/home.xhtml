@@ -7,10 +7,10 @@
     
     <ui:define name="content">
     
-        <p>Hello, #{userDAO.loggedInUser.name}!</p>
+        <span class="subtitle">Hello, #{userDAO.loggedInUser.name}!</span>
         
         <h:panelGroup layout="block" rendered="#{not empty userDAO.unseenMessageSenders}">
-            <p>
+            <p class="only-top-margin">
 	            Új üzenetek:<br />
 	            <ui:repeat value="#{userDAO.unseenMessageSenders}" var="user">
 	                <h:link value="#{user.name}" outcome="/content/message.xhtml">
@@ -18,6 +18,9 @@
 	                </h:link>
 	            </ui:repeat>
             </p>
+        </h:panelGroup>
+        <h:panelGroup layout="block" rendered="#{empty userDAO.unseenMessageSenders}">
+            <p class="only-top-margin">Jelenleg nincs új üzeneted.</p>
         </h:panelGroup>
         
     </ui:define>

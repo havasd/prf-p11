@@ -14,18 +14,18 @@
     <ui:define name="content">
     
         <h:panelGroup layout="block" rendered="#{empty messageController.otherUser}">
-	        <h1>Üzenetek</h1>
-	        <h:outputText value="Nincs megjeleníthető felhasználó." />
+	        <span class="subtitle">Üzenetek</span>
+	        <p class="only-top-margin">Nincs megjeleníthető felhasználó.</p>
         </h:panelGroup>
         
         <h:panelGroup layout="block" rendered="#{not empty messageController.otherUser}">
         
-            <h1>
+            <span class="subtitle">
                 <h:link value="#{messageController.otherUser.name}" outcome="/content/user-view.xhtml">
                     <f:param name="u" value="#{messageController.otherUser.id}" />
                 </h:link>
                 - Üzenetek
-            </h1>
+            </span>
         
             <ui:repeat value="#{messageController.messages}" var="message">
 	            <div class="message">

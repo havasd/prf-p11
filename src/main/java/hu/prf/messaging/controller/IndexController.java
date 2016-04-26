@@ -5,13 +5,14 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import hu.prf.messaging.util.HttpParam;
 import hu.prf.messaging.util.Session;
 
 @Named
+@ViewScoped
 public class IndexController implements Serializable {
 
 	private static final long serialVersionUID = 4791311366878719085L;
@@ -19,16 +20,15 @@ public class IndexController implements Serializable {
 	@Inject
 	private Session session;
 
-	@Inject
-	private HttpParam httpParam;
+	private String action;
 
 	public void init() {
-		if (Objects.equals(httpParam.getParam("a"), "logout")) {
-			session.invalidate();
-		}
-
+		System.out.println(action);
 		try {
-			if (session.isLoggedIn()) {
+			if (Objects.equals(action, "logout")) {
+				session.invalidate();
+				FacesContext.getCurrentInstance().getExternalContext().redirect("content/login.xhtml");
+			} else if (session.isLoggedIn()) {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("content/home.xhtml");
 			} else {
 				FacesContext.getCurrentInstance().getExternalContext().redirect("content/login.xhtml");
@@ -44,6 +44,14 @@ public class IndexController implements Serializable {
 
 	public long userId() {
 		return session.getUserId();
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
 	}
 
 }

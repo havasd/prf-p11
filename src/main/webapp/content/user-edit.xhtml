@@ -3,6 +3,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     template="/templates/logged-in-default.xhtml">
 
     <f:metadata>
@@ -10,76 +11,65 @@
     </f:metadata>
 
     <ui:define name="content">
-    
-        <h:panelGroup layout="block" rendered="#{empty userController.user}">
-            <h1>Felhasználó</h1>
-            Nincs ilyen felhasználó.
-        </h:panelGroup>
-        
-        <h:panelGroup layout="block" rendered="#{not empty userController.user}">
 
-            <h1>Adatok szerkesztése</h1>
-            
-            <h:form>
-            
-                <div>
-	                <h:outputLabel
-		                for="userName"
-		                value="Név: "/>
-	                <h:inputText
-		                id="userName"
-		                value="#{userController.user.name}"
-		                required="true" />
-	                <h:message
-		                for="userName"
-		                styleClass="error" />
-                </div>
-                
-                <div>
-	                <h:outputLabel
-		                for="userEmail"
-		                value="E-mail: "/>
-	                <h:inputText
-		                id="userEmail"
-		                value="#{userController.user.email}"
-		                required="true" />
-	                <h:message
-		                for="userEmail"
-		                styleClass="error" />
-                </div>
-                
-                <div>
-	                <h:outputLabel
-		                for="userPassword"
-		                value="Jelszó: "/>
-	                <h:inputSecret
-		                id="userPassword"
-		                value="#{userController.user.password}"
-		                required="false" />
-                </div>
-
-                <div>
-	                <h:outputLabel
-		                for="userBirthDate"
-		                value="Születési dátum: "/>
-	                <h:inputText
-	                    id="userBirthDate"
-		                value="#{userController.user.birthDate}"
-		                required="true">
-	                   <f:convertDateTime pattern="yyyy. MM. dd." />
-	                </h:inputText>
-	                <h:message
-		                for="userBirthDate"
-		                styleClass="error" />
-                </div>
-
-                <h:commandLink
-	                value="Mentés"
-	                action="#{userController.save()}" />
-	                
-            </h:form>
-
-        </h:panelGroup>
+        <span class="subtitle">Adatok szerkesztése</span>
+           
+        <h:form>
+            <table class="user-edit-table-margin">
+                <h:panelGroup rendered="#{param['a'] == 'error'}">
+                    <tr>
+                        <td colspan="2" class="td-error">
+                            <ul>
+                                <h:panelGroup rendered="#{param['err_mail'] == '1'}">
+                                    <li>Nem jó email</li>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{param['err_exist'] == '1'}">
+                                    <li>Ez az email már foglalt</li>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{param['err_pass'] == '1'}">
+                                    <li>A jelszó minimum 6 karakter</li>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{param['err_name'] == '1'}">
+                                    <li>Túl rövid név</li>
+                                </h:panelGroup>
+                                <h:panelGroup rendered="#{param['err_date'] == '1'}">
+                                    <li>Nem jó dátum formátum</li>
+                                </h:panelGroup>
+                            </ul>
+                        </td>
+                    </tr>
+                </h:panelGroup>
+                <tr>
+                    <td class="td-right user-edit-td-titles">Név:</td>
+                    <td>
+                        <h:inputText id="name" value="#{userController.user.name}" styleClass="user-edit-text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-right user-edit-td-titles">Email:</td>
+                    <td>
+                        <h:inputText id="mail" value="#{userController.user.email}" styleClass="user-edit-text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-right user-edit-td-titles">Jelszó:</td>
+                    <td>
+                        <h:inputSecret id="password" value="#{userController.user.password}" styleClass="user-edit-text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-right user-edit-td-titles">Született:</td>
+                    <td>
+                        <h:inputText id="birth" a:placeholder="2000-01-01" value="#{userController.birth}" styleClass="user-edit-text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="td-center">
+                        <h:commandButton styleClass="submit-button" value="Mentés" action="#{userController.save()}"/>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
 
     </ui:define>
     

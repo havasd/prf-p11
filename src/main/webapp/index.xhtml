@@ -6,6 +6,7 @@
     template="/templates/logged-out-default.xhtml">
 
     <f:metadata>
+        <f:viewParam name="a" value="#{indexController.action}" />
         <f:viewAction action="#{indexController.init()}" />
     </f:metadata>
     

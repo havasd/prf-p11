@@ -49,7 +49,7 @@ public class LoginController implements Serializable {
 		List<User> results = userDAO.findByEmailAndPassword(email, password);
 		if (!results.isEmpty()) {
 			session.setUserId(results.get(0).getId());
-			return "/content/home.xhtml";
+			return "/content/home.xhtml?faces-redirect=true";
 		}
 		return "/content/login.xhtml?faces-redirect=true&a=login_error";
 	}

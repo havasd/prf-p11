@@ -6,29 +6,35 @@
     template="/templates/logged-out-default.xhtml">
     
     <ui:define name="contentFull">
-    
         <h:form>
-        
-           <h:panelGrid columns="3">
-              <f:validateBean>
-                 <h:outputLabel for="email">Email:</h:outputLabel>
-                 <h:inputText id="email" value="#{loginController.email}" required="true"
-                    requiredMessage="Please enter your email address."
-                    validatorMessage="Invalid email format">
-                    <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-                 </h:inputText>
-                 <h:message for="email" style="color:red" />
-                 
-                 <h:outputLabel for="password">Password:</h:outputLabel>
-                 <h:inputSecret id="password" value="#{loginController.password}"/>
-                 <h:message for="password" style="color:red" />
-              </f:validateBean>
-              <h:commandButton value="Bejelentkezés" action="#{loginController.login()}"/>
-              <h:button value="Regisztráció" outcome="/content/register.xhtml"/>
-           </h:panelGrid>
-           
+            <table class="user-edit-table">
+                <h:panelGroup rendered="#{param['a'] == 'login_error'}">
+	                <tr>
+	                    <td colspan="2" class="td-error td-center">
+	                       Hibás email vagy jelszó.
+	                    </td>
+	                </tr>
+                </h:panelGroup>
+                <tr>
+                    <td class="td-right user-edit-td-titles">Email:</td>
+                    <td>
+	                    <h:inputText id="email" value="#{loginController.email}" styleClass="user-edit-text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-right user-edit-td-titles">Jelszó:</td>
+                    <td>
+                        <h:inputSecret id="password" value="#{loginController.password}" styleClass="user-edit-text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="td-center">
+	                    <h:commandButton styleClass="submit-button" value="Bejelentkezés" action="#{loginController.login()}"/>
+	                    <h:button styleClass="submit-button reg-button" value="Regisztráció" outcome="/content/register.xhtml"/>
+                    </td>
+                </tr>
+            </table>
         </h:form>
-        
     </ui:define>
     
 </ui:composition>

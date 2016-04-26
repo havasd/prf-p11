@@ -59,4 +59,17 @@ public class UserDAO extends GenericDAO<User, Long> {
 		return findEntity(session.getUserId());
 	}
 
+	/**
+	 * @return true if email already exist
+	 */
+	public boolean checkEmailExistance(String email) {
+		TypedQuery<Long> q = getEntityManager().createQuery(
+			"select count(u.id) " +
+			"from User u " +
+			"where u.email = :email ",
+			Long.class);
+		q.setParameter("email", email);
+		return q.getSingleResult() > 0;
+	}
+
 }
