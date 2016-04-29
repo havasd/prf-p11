@@ -54,6 +54,47 @@ public class UserDAO extends GenericDAO<User, Long> {
 		q.setParameter("uid", session.getUserId());
 		return q.getResultList();
 	}
+	
+	public List<User> getOldMessagePartners() {
+		TypedQuery<User> q = getEntityManager().createQuery(
+			"select u " +
+			"from User u " +
+				"where u in (" +
+				"select m.sender " +
+				"from Message m " +
+				"where m.reciever.id = :uid and m.seen = true " +
+				"order by m.date" +
+			")",
+			/*+ " union "
+			+ "select u " +
+			"from User u " +
+			"where u in (" +
+			"select m.reciever " +
+			"from Message m " +
+			"where m.sender.id = :uid " +
+			"order by m.date" +
+			")",*/
+			User.class);
+		q.setParameter("uid", session.getUserId());
+		List<User> l1= q.getResultList();
+		List<User> l2=getOldMessagePartners2();
+		l1.addAll(l2);
+		return l1;
+	}
+	public List<User> getOldMessagePartners2() {
+		TypedQuery<User> q = getEntityManager().createQuery(
+			"select u " +
+			"from User u " +
+				"where u in (" +
+				"select m.reciever " +
+				"from Message m " +
+				"where m.sender.id = :uid " +
+				"order by m.date" +
+			")",
+			User.class);
+		q.setParameter("uid", session.getUserId());
+		return q.getResultList();
+	}
 
 	public User getLoggedInUser() {
 		return findEntity(session.getUserId());
