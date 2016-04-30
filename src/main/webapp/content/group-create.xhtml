@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/logged-in-default.xhtml">
+
+	<f:metadata>
+        <f:viewAction action="#{groupController.init()}" />
+    </f:metadata>
+
+    <ui:define name="content">
+    
+        <span class="subtitle">Csoportok</span>
+        
+        <p class="only-top-margin"><h:link value="Keresés" outcome="/content/group-list.xhtml" /> / Új létrehozása</p>
+        <div>
+	            <h:form>
+	               <table>
+			      <h:panelGroup rendered="#{param['a'] == 'error'}">
+			        <tr>
+			            <td colspan="2" class="td-error">
+			                <ul>
+			                    <h:panelGroup rendered="#{param['err_long'] == '1'}">
+			                        <li>Adjon meg egy nevet!</li>
+			                    </h:panelGroup>
+			                    <h:panelGroup rendered="#{param['err_exist'] == '1'}">
+                                    <li>Ez a név már foglalt.</li>
+                                </h:panelGroup>
+                            </ul>
+                        </td>
+                      </tr>
+                    </h:panelGroup>
+                	<tr>
+                    <td class="td-right user-edit-td-titles">Név:</td>
+                    <td>
+	                    <h:inputText id="name" value="#{groupController.group.name}" styleClass="user-edit-text" />
+                    </td>
+                	</tr>
+                	<tr>
+			        <td colspan="2" class="td-center">
+			            <h:commandButton styleClass="submit-button" value="Mentés" action="#{groupController.save()}"/>
+			        </td>
+			    </tr>
+                	</table>
+	            </h:form>
+            </div>
+
+    </ui:define>
+    
+</ui:composition>

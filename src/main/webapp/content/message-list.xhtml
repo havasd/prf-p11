@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/logged-in-default.xhtml">
+	
+	<ui:define name="content">
+	
+		<span class="subtitle">Üzenetek</span>
+
+        
+        <h:panelGroup layout="block" rendered="#{empty userDAO.unseenMessageSenders}">
+            <p class="only-top-margin">Jelenleg nincs új üzeneted.</p>
+        </h:panelGroup>
+        <h:panelGroup layout="block" rendered="#{not empty userDAO.unseenMessageSenders}">
+            <p class="only-top-margin">
+	            Új üzenetek:<br />
+	            <ui:repeat value="#{userDAO.unseenMessageSenders}" var="user">
+	                <h:link value="#{user.name}" outcome="/content/message.xhtml">
+	                    <f:param name="u" value="#{user.id}" />
+	                </h:link>
+	            </ui:repeat>
+            </p>
+        </h:panelGroup>
+        
+        <h:panelGroup layout="block" rendered="#{empty userDAO.oldMessagePartners}">
+            <p class="only-top-margin">Jelenleg nincs régebbi üzeneted.</p>
+        </h:panelGroup>
+        <h:panelGroup layout="block" rendered="#{not empty userDAO.oldMessagePartners}">
+            <p class="only-top-margin">
+	            Régi üzenetek:<br />
+	            <ui:repeat value="#{userDAO.oldMessagePartners}" var="user">
+	                <h:link value="#{user.name}" outcome="/content/message.xhtml">
+	                    <f:param name="u" value="#{user.id}" />
+	                </h:link>
+	            </ui:repeat>
+            </p>
+        </h:panelGroup>
+        
+	</ui:define>
+</ui:composition>
