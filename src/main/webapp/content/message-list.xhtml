@@ -18,7 +18,7 @@
 	            Új üzenetek:<br />
 	            <ui:repeat value="#{userDAO.unseenMessageSenders}" var="user">
 	                <h:link value="#{user.name}" outcome="/content/message.xhtml">
-	                    <f:param name="u" value="#{user.id}" />
+	                    <b><f:param name="u" value="#{user.id}" /><br/></b>
 	                </h:link>
 	            </ui:repeat>
             </p>
@@ -32,7 +32,7 @@
 	            Régi üzenetek:<br />
 	            <ui:repeat value="#{userDAO.oldMessagePartners}" var="user">
 	                <h:link value="#{user.name}" outcome="/content/message.xhtml">
-	                    <f:param name="u" value="#{user.id}" />
+	                    <f:param name="u" value="#{user.id}" /><br/>
 	                </h:link>
 	            </ui:repeat>
             </p>

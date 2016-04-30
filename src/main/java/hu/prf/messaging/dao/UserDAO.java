@@ -1,9 +1,12 @@
 package hu.prf.messaging.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.TypedQuery;
+
+import hu.prf.messaging.entity.Group;
 import hu.prf.messaging.entity.User;
 import hu.prf.messaging.util.Session;
 
@@ -111,6 +114,16 @@ public class UserDAO extends GenericDAO<User, Long> {
 			"where u.email = :email ",
 			Long.class);
 		q.setParameter("email", email);
+		return q.getSingleResult() > 0;
+	}
+	
+	public boolean isInGroup(Long groupID){
+		TypedQuery<Long> q = getEntityManager().createQuery(
+			"select count(m.id) " +
+			"from Membership m " +
+			"where m.group.id = :groupID ",
+			Long.class);
+		q.setParameter("groupID", groupID);
 		return q.getSingleResult() > 0;
 	}
 

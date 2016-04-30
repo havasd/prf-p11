@@ -8,7 +8,12 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 
 import hu.prf.messaging.dao.GroupDAO;
+import hu.prf.messaging.dao.MembershipDAO;
+import hu.prf.messaging.dao.UserDAO;
 import hu.prf.messaging.entity.Group;
+import hu.prf.messaging.entity.Membership;
+import hu.prf.messaging.entity.User;
+import hu.prf.messaging.util.Session;
 
 @Named
 @ViewScoped
@@ -18,15 +23,36 @@ public class GroupController implements Serializable {
 
 	@Inject
 	private GroupDAO groupDAO;
+	
+	@Inject
+	private MembershipDAO membershipDAO;
+	
+	@Inject
+	private Session session;
+
+	@Inject
+	private UserDAO userDAO;
 
 	private Group group;
 
+	private boolean isUserIn;
+
+	private long id;
+	
 	public Group getGroup() {
 		return group;
 	}
 
 	public void setGroup(Group group) {
 		this.group = group;
+	}
+	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public void init() {
@@ -59,6 +85,34 @@ public class GroupController implements Serializable {
 			sb.append("&err_long=1");
 		}
 		return sb.toString();
+	}
+	
+	@Transactional
+	public void load() {
+		User loggedInUser = userDAO.findEntity(session.getUserId());
+		group = groupDAO.findEntity(id);
+		if (loggedInUser != null && group != null) {
+			isUserIn = userDAO.isInGroup(id);
+		}
+	}
+	
+	@Transactional
+	public void join() {
+		System.out.println("csatl: "+id);
+		//membershipDAO.persist(new Membership(userDAO.findEntity(session.getUserId()),groupDAO.findEntity(id)));
+	}
+
+	@Transactional
+	public void leave() {
+		membershipDAO.remove(new Membership(userDAO.findEntity(session.getUserId()),groupDAO.findEntity(id)));
+	}
+	
+	public boolean getIsUserIn() {
+		return isUserIn;
+	}
+
+	public void setIsUserIn(boolean isUserIn) {
+		this.isUserIn = isUserIn;
 	}
 
 }

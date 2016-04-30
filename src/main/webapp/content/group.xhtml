@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/logged-in-default.xhtml">
+
+	<f:metadata>
+        <f:viewParam name="g" value="#{groupController.id}" />
+        <f:viewAction action="#{groupController.load()}" />
+    </f:metadata>
+
+    <ui:define name="content">
+    
+        <span class="subtitle">Csoportok</span>
+        
+        <p class="only-top-margin"><h:outputLabel id="csopName" value="#{groupController.group.name}"/></p>
+        <h:panelGroup rendered="#{true == groupController.isUserIn}">
+            <p class="only-top-margin"><h:link value="Kilépés" action="#{groupController.leave()}">
+	                    <f:param name="g" value="#{groupController.id}" /></h:link></p>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{false == groupController.isUserIn}">
+            <p class="only-top-margin"><h:link value="Csatlakozás" action="#{groupController.join()}">
+	                    <f:param name="g" value="#{groupController.id}" /></h:link></p>
+        </h:panelGroup>
+
+
+    </ui:define>
+    
+</ui:composition>

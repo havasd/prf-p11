@@ -16,7 +16,6 @@ public class GroupDAO extends GenericDAO<Group, Long> {
 	}
 
 	public List<Group> findBySubStr(String substr) {
-		System.out.println("sub: "+substr);
 		StringBuilder queryBuilder = new StringBuilder();
 		queryBuilder.append("select ");
 		queryBuilder.append("	g ");

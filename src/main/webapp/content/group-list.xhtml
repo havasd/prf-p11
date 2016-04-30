@@ -22,7 +22,7 @@
         <h:panelGroup layout="block" rendered="#{not empty searchController.search()}">
             <p class="only-top-margin">
 	            <ui:repeat value="#{searchController.search()}" var="group">
-	                <h:link value="#{group.name}" outcome="/content/home.xhtml"><!-- todo -->
+	                <h:link value="#{group.name}" outcome="/content/group.xhtml">
 	                    <f:param name="g" value="#{group.id}" /><br/>
 	                </h:link>
 	            </ui:repeat>
