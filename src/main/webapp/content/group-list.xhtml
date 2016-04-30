@@ -4,12 +4,30 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     template="/templates/logged-in-default.xhtml">
-
+    
     <ui:define name="content">
     
         <span class="subtitle">Csoportok</span>
         
-        <p class="only-top-margin">TODO</p>
+        <p class="only-top-margin">Keresés / <h:link value="Új létrehozása" outcome="/content/group-create.xhtml" /></p>
+        
+        <h:form>
+        <table><tr>
+                    <td>
+	                    <h:inputText id="substr" value="#{searchController.substr}" styleClass="user-edit-text" />
+                    </td>
+                	</tr>
+             </table>
+        </h:form>
+        <h:panelGroup layout="block" rendered="#{not empty searchController.search()}">
+            <p class="only-top-margin">
+	            <ui:repeat value="#{searchController.search()}" var="group">
+	                <h:link value="#{group.name}" outcome="/content/home.xhtml"><!-- todo -->
+	                    <f:param name="g" value="#{group.id}" /><br/>
+	                </h:link>
+	            </ui:repeat>
+            </p>
+        </h:panelGroup>
 
     </ui:define>
     
