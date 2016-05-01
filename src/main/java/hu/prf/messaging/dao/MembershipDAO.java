@@ -2,6 +2,7 @@ package hu.prf.messaging.dao;
 
 
 import javax.inject.Named;
+import javax.persistence.TypedQuery;
 
 import hu.prf.messaging.entity.Membership;
 
@@ -12,6 +13,17 @@ public class MembershipDAO extends GenericDAO<Membership, Long> {
 
 	public MembershipDAO() {
 		super(Membership.class);
+	}
+
+	public Membership getByIds(long userId, long groupID) {
+		TypedQuery<Membership> q = getEntityManager().createQuery(
+				"select m " +
+				"from Membership m " +
+				"where m.group.id = :groupID and m.user.id = :userId",
+				Membership.class);
+			q.setParameter("groupID", groupID);
+			q.setParameter("userId", userId);
+			return q.getSingleResult();
 	}
 
 }

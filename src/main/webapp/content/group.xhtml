@@ -7,24 +7,54 @@
 
 	<f:metadata>
         <f:viewParam name="g" value="#{groupController.id}" />
+        <f:viewParam name="g" value="#{groupMessageController.id}" />
+        <f:viewAction action="#{groupMessageController.load()}" />
         <f:viewAction action="#{groupController.load()}" />
     </f:metadata>
 
     <ui:define name="content">
+    <div>
     
         <span class="subtitle">Csoportok</span>
         
         <p class="only-top-margin"><h:outputLabel id="csopName" value="#{groupController.group.name}"/></p>
         <h:panelGroup rendered="#{true == groupController.isUserIn}">
-            <p class="only-top-margin"><h:link value="Kilépés" action="#{groupController.leave()}">
-	                    <f:param name="g" value="#{groupController.id}" /></h:link></p>
+            <p class="only-top-margin"><h:form><h:commandLink type="submit" value="Kilépés" action="#{groupController.leave()}">
+	                    </h:commandLink></h:form></p>
+	        <hr />
+        
+            <ui:repeat value="#{groupMessageController.messages}" var="message">
+	            <div class="message">
+	                <div class="message-sender">#{message.sender.name}</div>
+	                <div class="message-date">
+		                <h:outputText value="#{message.date}">
+						  <f:convertDateTime pattern="yyyy. MM. dd. HH:mm:ss" />
+						</h:outputText>
+                    </div>
+	                <div class="message-content">#{message.text}</div>
+	            </div>
+            </ui:repeat>
+	        <div>
+	            <h:form>
+	                <h:inputTextarea class="new-message-text"
+	                   placeholder="Új üzenet..."
+	                   value="#{groupMessageController.newMessageText}" />
+	                <div class="right">
+	                    <h:commandButton value="Küldés"
+	                       class="submit-button"
+	                       type="submit"
+	                       action="#{groupMessageController.sendNewMessage()}" />
+	                </div>
+	                <div class="clear"></div>
+	            </h:form>
+            </div>
         </h:panelGroup>
-        <h:panelGroup rendered="#{false == groupController.isUserIn}">
-            <p class="only-top-margin"><h:link value="Csatlakozás" action="#{groupController.join()}">
-	                    <f:param name="g" value="#{groupController.id}" /></h:link></p>
+        <h:panelGroup rendered="#{false == groupController.isUserIn}"> 
+            <p class="only-top-margin"><h:form><h:commandLink value="Csatlakozás" action="#{groupController.join()}">
+	                    </h:commandLink></h:form></p>
         </h:panelGroup>
 
 
-    </ui:define>
+    </div></ui:define>
     
 </ui:composition>
