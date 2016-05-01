@@ -104,9 +104,8 @@ public class GroupController implements Serializable {
 
 	@Transactional
 	public String leave() {
-		System.out.println("why not delete: "+id);
-		membershipDAO.remove(new Membership(userDAO.findEntity(session.getUserId()),groupDAO.findEntity(id)));
-		System.out.println("delete: "+id);
+		Membership membership=membershipDAO.getByIds(session.getUserId(),id);
+		membershipDAO.remove(membership);
 		return "/content/group.xhtml?g="+id;
 	}
 	
