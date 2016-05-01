@@ -97,14 +97,17 @@ public class GroupController implements Serializable {
 	}
 	
 	@Transactional
-	public void join() {
-		System.out.println("csatl: "+id);
-		//membershipDAO.persist(new Membership(userDAO.findEntity(session.getUserId()),groupDAO.findEntity(id)));
+	public String join() {
+		membershipDAO.persist(new Membership(userDAO.findEntity(session.getUserId()),groupDAO.findEntity(id)));
+		return "/content/group.xhtml?g="+id;
 	}
 
 	@Transactional
-	public void leave() {
+	public String leave() {
+		System.out.println("why not delete: "+id);
 		membershipDAO.remove(new Membership(userDAO.findEntity(session.getUserId()),groupDAO.findEntity(id)));
+		System.out.println("delete: "+id);
+		return "/content/group.xhtml?g="+id;
 	}
 	
 	public boolean getIsUserIn() {

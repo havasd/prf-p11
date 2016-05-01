@@ -16,12 +16,12 @@
         
         <p class="only-top-margin"><h:outputLabel id="csopName" value="#{groupController.group.name}"/></p>
         <h:panelGroup rendered="#{true == groupController.isUserIn}">
-            <p class="only-top-margin"><h:link value="Kilépés" action="#{groupController.leave()}">
-	                    <f:param name="g" value="#{groupController.id}" /></h:link></p>
+            <p class="only-top-margin"><h:form><h:commandLink type="submit" value="Kilépés" action="#{groupController.leave()}">
+	                    </h:commandLink></h:form></p>
         </h:panelGroup>
         <h:panelGroup rendered="#{false == groupController.isUserIn}">
-            <p class="only-top-margin"><h:link value="Csatlakozás" action="#{groupController.join()}">
-	                    <f:param name="g" value="#{groupController.id}" /></h:link></p>
+            <p class="only-top-margin"><h:form><h:commandLink value="Csatlakozás" action="#{groupController.join()}">
+	                    </h:commandLink></h:form></p>
         </h:panelGroup>
 
 
