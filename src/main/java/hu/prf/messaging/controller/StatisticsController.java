@@ -41,6 +41,8 @@ public class StatisticsController implements Serializable {
     private List<UserActivityModel> mostActiveSenders;
     
     private List<UserActivityModel> sendersToUser;
+    
+    private List<UserActivityModel> mostActiveChats;
 
     @PostConstruct
     public void init() {
@@ -48,6 +50,7 @@ public class StatisticsController implements Serializable {
         createMostActiveUsersBarChartModel();
         sendersToUser = messageDAO.getNumOfMessagesGrouppedBySenders(userDAO.getLoggedInUser().getId());
         createSendersToUserPieChartModel();
+        mostActiveChats = messageDAO.getMostActiveChats();
     }
     
     private void createSendersToUserPieChartModel() {
@@ -71,6 +74,7 @@ public class StatisticsController implements Serializable {
         mostActiveUsersBarChartModel.addSeries(userDataSeries);
         
         mostActiveUsersBarChartModel.setTitle("Legaktívabb felhasználók");
+        mostActiveUsersBarChartModel.setAnimate(true);
          
         Axis xAxis = mostActiveUsersBarChartModel.getAxis(AxisType.X);
         xAxis.setLabel("Felhasználók");
@@ -92,5 +96,13 @@ public class StatisticsController implements Serializable {
         return sendersToUser;
     }
     
+    public List<UserActivityModel> getMostActiveChats() {
+        return mostActiveChats;
+    }
+
+    public void setMostActiveChat(List<UserActivityModel> mostActiveChat) {
+        this.mostActiveChats = mostActiveChat;
+    }
+
 
 }

@@ -55,10 +55,10 @@
         <span class="subtitle">Legtöbb üzenetet tartalmaző beszélgetések</span>
         
         <h:dataTable
-            value="#{statisticsController.getMostActiveSenders()}"
+            value="#{statisticsController.getMostActiveChats()}"
             var="activity"
             styleClass="simpletablestyle"
-            rendered="#{not empty statisticsController.getMostActiveSenders()}">
+            rendered="#{not empty statisticsController.getMostActiveChats()}">
             
             <h:column>
                 <f:facet name="header">Egyik beszélgető partner</f:facet>
@@ -66,7 +66,7 @@
             </h:column>
             <h:column>
                 <f:facet name="header">Másik beszélgető partner</f:facet>
-                <h:outputText value="#{activity.numOfMsgs}" />
+                <h:outputText value="#{activity.otherName}" />
             </h:column>
             <h:column>
                 <f:facet name="header">Üzenetek száma</f:facet>
