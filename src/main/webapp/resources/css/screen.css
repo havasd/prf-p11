@@ -17,6 +17,7 @@ body {
 }
 
 .subtitle {
+    padding: 10px;
     font-weight: bold;
     font-size: 1.25em;
     display: block;
@@ -95,12 +96,10 @@ h1 {
 }
 
 .simpletablestyle th {
-    background: url(#{request.contextPath}/resources/gfx/bkg-blkheader.png)
-        black repeat-x top left;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 0 10px 0 5px;
-    border-bottom: #999999 dotted 1px;
+   text-align:center;
+   background:none repeat scroll 0 0 #B5B5B5;
+   border-bottom:1px solid #000000;  
+   padding:2px;
 }
 
 .simpletablestyle .header a {

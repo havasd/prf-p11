@@ -86,10 +86,10 @@
 		<!-- First declare the APIs we depend on and need for compilation. All 
 			of them are provided by JBoss WildFly -->
 
-	    <dependency>
-		    <groupId>javax</groupId>
-		    <artifactId>javaee-web-api</artifactId>
-		    <version>7.0</version>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>7.0</version>
 		</dependency>
 
 		<!-- Import the CDI API, we use provided scope as the API is included in 
@@ -145,6 +145,12 @@
 					<artifactId>slf4j-api</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>5.3</version>
 		</dependency>
 
 		<!-- Import the JSF API, we use provided scope as the API is included in 

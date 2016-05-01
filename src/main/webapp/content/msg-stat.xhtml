@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    template="/templates/logged-in-default.xhtml"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="content">
+    
+        <span class="subtitle">#{userDAO.loggedInUser.name} számára küldött üzenetek eloszlása</span>
+        
+        <h:dataTable
+            value="#{statisticsController.getSendersToUser()}"
+            var="activity"
+            styleClass="simpletablestyle"
+            rendered="#{not empty statisticsController.getSendersToUser()}">
+            
+            <h:column>
+                <f:facet name="header">Felhasználó neve</f:facet>
+                <h:outputText value="#{activity.name}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Küldött üzenetek száma</f:facet>
+                <h:outputText value="#{activity.numOfMsgs}" />
+            </h:column>
+        </h:dataTable>
+        
+        <div style="padding: 10px;">
+            <p:chart type="pie" model="#{statisticsController.numOfMsgsGrouppedBySenderPieChartModel}" style="height:300px"/>
+        </div>
+        
+        <span class="subtitle">Legtöbb üzenetet küldő felhasználók</span>
+        
+        <h:dataTable
+            value="#{statisticsController.getMostActiveSenders()}"
+            var="activity"
+            styleClass="simpletablestyle"
+            rendered="#{not empty statisticsController.getMostActiveSenders()}">
+            
+            <h:column>
+                <f:facet name="header">Felhasználó neve</f:facet>
+                <h:outputText value="#{activity.name}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Küldött üzenetek száma</f:facet>
+                <h:outputText value="#{activity.numOfMsgs}" />
+            </h:column>
+        </h:dataTable>
+        
+        <div style="padding: 10px;">
+            <p:chart type="bar" model="#{statisticsController.mostActiveUsersBarChartModel}" style="height:300px"/>
+        </div>
+        
+        <span class="subtitle">Legtöbb üzenetet tartalmaző beszélgetések</span>
+        
+        <h:dataTable
+            value="#{statisticsController.getMostActiveSenders()}"
+            var="activity"
+            styleClass="simpletablestyle"
+            rendered="#{not empty statisticsController.getMostActiveSenders()}">
+            
+            <h:column>
+                <f:facet name="header">Egyik beszélgető partner</f:facet>
+                <h:outputText value="#{activity.name}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Másik beszélgető partner</f:facet>
+                <h:outputText value="#{activity.numOfMsgs}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">Üzenetek száma</f:facet>
+                <h:outputText value="#{activity.numOfMsgs}" />
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+    
+</ui:composition>
