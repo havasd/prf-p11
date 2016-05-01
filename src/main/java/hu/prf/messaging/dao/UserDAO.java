@@ -1,12 +1,10 @@
 package hu.prf.messaging.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.TypedQuery;
 
-import hu.prf.messaging.entity.Group;
 import hu.prf.messaging.entity.User;
 import hu.prf.messaging.util.Session;
 

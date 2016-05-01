@@ -99,14 +99,14 @@ public class GroupController implements Serializable {
 	@Transactional
 	public String join() {
 		membershipDAO.persist(new Membership(userDAO.findEntity(session.getUserId()),groupDAO.findEntity(id)));
-		return "/content/group.xhtml?g="+id;
+		return "/content/group.xhtml?faces-redirect=true&g="+id;
 	}
 
 	@Transactional
 	public String leave() {
 		Membership membership=membershipDAO.getByIds(session.getUserId(),id);
 		membershipDAO.remove(membership);
-		return "/content/group.xhtml?g="+id;
+		return "/content/group.xhtml?faces-redirect=true&g="+id;
 	}
 	
 	public boolean getIsUserIn() {
