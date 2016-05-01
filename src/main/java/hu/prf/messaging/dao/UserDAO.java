@@ -119,9 +119,10 @@ public class UserDAO extends GenericDAO<User, Long> {
 		TypedQuery<Long> q = getEntityManager().createQuery(
 			"select count(m.id) " +
 			"from Membership m " +
-			"where m.group.id = :groupID ",
+			"where m.group.id = :groupID and m.user.id = :id",
 			Long.class);
 		q.setParameter("groupID", groupID);
+		q.setParameter("id", session.getUserId());
 		return q.getSingleResult() > 0;
 	}
 
