@@ -3,10 +3,12 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     template="/templates/logged-in-default.xhtml">
 
 	<f:metadata>
         <f:viewParam name="g" value="#{groupController.id}" />
+        <f:viewParam name="e" value="#{groupController.editable}" />
         <f:viewParam name="g" value="#{groupMessageController.id}" />
         <f:viewAction action="#{groupMessageController.load()}" />
         <f:viewAction action="#{groupController.load()}" />
@@ -17,12 +19,31 @@
     
         <span class="subtitle">Csoportok</span>
         
-        <p class="only-top-margin"><h:outputLabel id="csopName" value="#{groupController.group.name}"/></p>
+        <p class="only-top-margin"><b><h:outputLabel id="csopName" value="#{groupController.group.name}"/></b> (<h:outputLabel id="csopDb" value="#{groupController.memberCtr}"/> tag)
+        	<h:panelGroup rendered="#{groupController.isUserIn and !groupController.editable}">
+            <h:form> - <h:commandLink value="Szerkesztés" action="#{groupController.edit()}">
+	                    <f:param name="g" value="#{groupController.group.id}" />
+	                    </h:commandLink></h:form>
+	        </h:panelGroup>
+	    </p>
+        <h:panelGroup rendered="#{!groupController.editable}">
+	    <p class="only-top-margin"><h:outputLabel id="csopDesc" value="#{groupController.group.description}"/>
+        </p></h:panelGroup>
+        
+	    <h:panelGroup rendered="#{groupController.editable}">
+            <h:form> - <h:commandLink value="Mentés" action="#{groupController.saveEdit()}">
+	                    <f:param name="g" value="#{groupController.group.id}" />
+	                    </h:commandLink>
+	    <p class="only-top-margin"><h:inputTextarea  a:class="new-message-text" id="csopDesc2" value="#{groupController.description}"/>
+        </p></h:form></h:panelGroup>
+        <!-- csoportleírás ide -->
         <h:panelGroup rendered="#{true == groupController.isUserIn}">
             <p class="only-top-margin"><h:form><h:commandLink type="submit" value="Kilépés" action="#{groupController.leave()}">
 	                    </h:commandLink></h:form></p>
 	        <hr />
+	       </h:panelGroup>
         
+        <h:panelGroup rendered="#{true == groupController.isUserIn and  !groupController.editable }">
             <ui:repeat value="#{groupMessageController.messages}" var="message">
 	            <div class="message">
 	                <div class="message-sender">#{message.sender.name}</div>

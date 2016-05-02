@@ -26,4 +26,14 @@ public class MembershipDAO extends GenericDAO<Membership, Long> {
 			return q.getSingleResult();
 	}
 
+	public Long count(long id) {
+		TypedQuery<Long> q = getEntityManager().createQuery(
+				"select count(m.group.id) " +
+				"from Membership m " +
+				"where m.group.id = :id ",
+				Long.class);
+		q.setParameter("id", id);
+		return q.getSingleResult();
+	}
+
 }

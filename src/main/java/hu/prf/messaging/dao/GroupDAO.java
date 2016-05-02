@@ -23,6 +23,7 @@ public class GroupDAO extends GenericDAO<Group, Long> {
 		queryBuilder.append("	Group g ");
 		queryBuilder.append("where ");
 		queryBuilder.append("	g.name  LIKE '%"+substr+"%' ");
+		queryBuilder.append("order by	g.name ");
 
 		TypedQuery<Group> query = getEntityManager().createQuery(queryBuilder.toString(), Group.class);
 		return query.getResultList();

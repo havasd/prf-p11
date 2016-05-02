@@ -32,6 +32,12 @@ public class GroupController implements Serializable {
 
 	@Inject
 	private UserDAO userDAO;
+	
+	private boolean editable;
+	
+	private boolean memberEdit;
+	
+	private Long memberCtr;
 
 	private Group group;
 
@@ -39,6 +45,16 @@ public class GroupController implements Serializable {
 
 	private long id;
 	
+	private String description="";
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Group getGroup() {
 		return group;
 	}
@@ -93,6 +109,9 @@ public class GroupController implements Serializable {
 		group = groupDAO.findEntity(id);
 		if (loggedInUser != null && group != null) {
 			isUserIn = userDAO.isInGroup(id);
+			memberCtr=membershipDAO.count(id);
+			if(group.getDescription()!=null)
+				description=group.getDescription();
 		}
 	}
 	
@@ -115,6 +134,44 @@ public class GroupController implements Serializable {
 
 	public void setIsUserIn(boolean isUserIn) {
 		this.isUserIn = isUserIn;
+	}
+
+	public Long getMemberCtr() {
+		return memberCtr;
+	}
+
+	public void setMemberCtr(Long memberCtr) {
+		this.memberCtr = memberCtr;
+	}
+
+	public boolean isEditable() {
+		return editable;
+	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+	
+	public String edit() {
+		editable=true;
+		return "/content/group.xhtml?faces-redirect=true&g="+id+"&e=true";
+	}
+	
+	@Transactional
+	public String saveEdit() {
+		editable=false;
+		group.setDescription(description);
+		System.out.println("merge: "+group+", "+group.getDescription()+", "+description);
+		groupDAO.merge(group);
+		return "/content/group.xhtml?faces-redirect=true&g="+id+"&e=false";
+	}
+
+	public boolean getMemberEdit() {
+		return memberEdit;
+	}
+
+	public void setMemberEdit(boolean memberEdit) {
+		this.memberEdit = memberEdit;
 	}
 
 }

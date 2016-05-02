@@ -3,6 +3,7 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     template="/templates/logged-in-default.xhtml">
 
 	<f:metadata>
@@ -36,6 +37,15 @@
                     <td>
 	                    <h:inputText id="name" value="#{groupController.group.name}" styleClass="user-edit-text" />
                     </td>
+                	</tr>
+	                <tr>
+				        <td colspan="2" class="td-center">
+		                	<div>
+			                <h:inputTextarea class="new-message-text"
+			                   a:placeholder="Leírás..."
+			                   value="#{groupController.group.description}" />
+			                <div class="clear"></div></div>
+				        </td>
                 	</tr>
                 	<tr>
 			        <td colspan="2" class="td-center">

@@ -24,6 +24,8 @@ public class Group implements Serializable {
 	private Long id;
 
 	private String name;
+	
+	private String description;
 
 	@ManyToMany
 	private List<User> users;
@@ -65,6 +67,14 @@ public class Group implements Serializable {
 
 	public void setPosts(List<Post> posts) {
 		this.posts = posts;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 }
