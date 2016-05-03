@@ -81,7 +81,9 @@ public class StatisticsController implements Serializable {
          
         Axis yAxis = mostActiveUsersBarChartModel.getAxis(AxisType.Y);
         yAxis.setLabel("Üzenetek száma");
-        yAxis.setMax(mostActiveSenders.get(0).getnumOfMsgs() + 10);
+        if (!mostActiveSenders.isEmpty()) {
+            yAxis.setMax(mostActiveSenders.get(0).getnumOfMsgs() + 10);
+        }
     }
     
     public BarChartModel getMostActiveUsersBarChartModel() {
