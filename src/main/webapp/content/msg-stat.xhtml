@@ -9,7 +9,9 @@
     <ui:define name="content">
     
         <span class="subtitle">#{userDAO.loggedInUser.name} számára küldött üzenetek eloszlása</span>
-        
+        <h:panelGroup rendered="#{empty statisticsController.getSendersToUser()}">
+            <p>Nincsenek elérhető adatok.</p>
+        </h:panelGroup>
         <h:dataTable
             value="#{statisticsController.getSendersToUser()}"
             var="activity"
@@ -31,7 +33,9 @@
         </div>
         
         <span class="subtitle">Legtöbb üzenetet küldő felhasználók</span>
-        
+        <h:panelGroup rendered="#{empty statisticsController.getMostActiveSenders()}">
+            <p>Nincsenek elérhető adatok.</p>
+        </h:panelGroup>
         <h:dataTable
             value="#{statisticsController.getMostActiveSenders()}"
             var="activity"
@@ -53,7 +57,9 @@
         </div>
         
         <span class="subtitle">Legtöbb üzenetet tartalmazó beszélgetések</span>
-        
+        <h:panelGroup rendered="#{empty statisticsController.getMostActiveChats()}">
+            <p>Nincsenek elérhető adatok.</p>
+        </h:panelGroup>
         <h:dataTable
             value="#{statisticsController.getMostActiveChats()}"
             var="activity"
